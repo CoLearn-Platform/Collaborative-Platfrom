@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllRooms } from "../services/apiRoom";
+import Loader from "../ui/Loader";
 
 function Rooms() {
   const {
@@ -12,7 +13,9 @@ function Rooms() {
   });
 
   console.log(rooms);
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div>
       <h1>rooms</h1>
     </div>

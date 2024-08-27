@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../services/apiProject";
+import Loader from "../ui/Loader";
 
 function Projects() {
   const {
@@ -8,7 +9,9 @@ function Projects() {
     error,
   } = useQuery({ queryKey: ["projects"], queryFn: getAllProjects });
   console.log(projects);
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div>
       <h1>prjj</h1>
     </div>

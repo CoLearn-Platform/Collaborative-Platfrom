@@ -6,9 +6,9 @@ function AppLayout() {
   return (
     <>
       <Header />
-      <div className="size-full min-h-[80dvh]">
+      <main className="size-full min-h-[80dvh]">
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </>
   );

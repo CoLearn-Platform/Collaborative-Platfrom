@@ -65,3 +65,46 @@ export async function getProjectMembers(id) {
 
   return membersName;
 }
+
+// getting project owned by a user
+export async function getProjectOwned(userId) {
+  let { data: projects, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("created_by", userId);
+
+  if (error) {
+    console.log("error in getting project owned by user", error);
+    throw new Error(error.message);
+  }
+  return projects;
+}
+
+// getting project joined by a user
+export async function getProjectJoined(userId) {
+  let { data, error } = await supabase
+    .from("members")
+    .select("projectId")
+    .eq("userId", userId);
+
+  const projects = data.filter((item) => item.projectId != null);
+
+  if (error) {
+    console.log("error in getting project joined by user", error);
+    throw new Error(error.message);
+  }
+
+  const projectsDetails = Promise.all(
+    projects.map(async (project) => {
+      try {
+        const projectDetail = await getProjectDetail(project.projectId);
+        return projectDetail[0];
+      } catch (e) {
+        console.log("error in getting project detail", e);
+        throw new Error(e.message);
+      }
+    })
+  );
+
+  return projectsDetails;
+}
