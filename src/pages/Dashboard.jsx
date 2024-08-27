@@ -67,7 +67,7 @@ function Dashboard() {
                   className="w-full h-full rounded-full"
                 />
               ) : (
-                <span className="text-gray-500 text-2xl">No Avatar</span>
+                <span className="text-gray-500 text-2xl ">No Avatar</span>
               )}
             </div>
             <div className="mt-4 text-center">
