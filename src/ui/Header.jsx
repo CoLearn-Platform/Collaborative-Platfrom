@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,11 +39,19 @@ function Header() {
           </nav>
           {/* Action Button */}
           <div>
-            <Link to="/signup">
-              <button className="bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-300">
-                Join Us
-              </button>
-            </Link>
+            {isAuthenticated ? (
+              <Link to="/dashboard">
+                <button className="bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-300">
+                  Dashboard
+                </button>
+              </Link>
+            ) : (
+              <Link to="/signup">
+                <button className="bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-300">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
