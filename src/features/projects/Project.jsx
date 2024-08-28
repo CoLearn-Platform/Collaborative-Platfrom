@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import Button from "../../ui/Button";
 import { useMutation } from "@tanstack/react-query";
-import { JoinProject } from "../../services/apiUser";
+import { JoinProject, leaveProject } from "../../services/apiUser";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
@@ -29,9 +29,24 @@ function Project({ project }) {
     },
   });
 
+  const { mutate: mutateLeave, isLoading: isLeaving } = useMutation({
+    mutationFn: ({ id, userId }) => leaveProject(id, userId),
+    onSuccess: () => {
+      toast.success("Left the project successfully");
+    },
+    onError: () => {
+      toast.error("Failed to leave the project");
+    },
+  });
+
   function handleJoinProject() {
     mutate({ id, userId });
     // console.log(id, userId);
+  }
+
+  function handleLeaveProject() {
+    // console.log("leave project");
+    mutateLeave({ id, userId });
   }
 
   function handleDetails() {
@@ -81,6 +96,7 @@ function Project({ project }) {
               <div>
                 <Button onClick={handleDetails}>details</Button>
                 <Button onClick={handleJoinProject}>join</Button>
+                <Button onClick={handleLeaveProject}>Leave</Button>
               </div>
             </div>
           )}

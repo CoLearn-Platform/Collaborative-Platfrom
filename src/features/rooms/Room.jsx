@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import Button from "../../ui/Button";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { JoinRoom } from "../../services/apiUser";
+import { JoinRoom, leaveRoom } from "../../services/apiUser";
 
 function Room({ room }) {
   const userId = 1;
@@ -19,6 +19,16 @@ function Room({ room }) {
     },
   });
 
+  const { mutate: mutateLeave, isLoading: isLeaving } = useMutation({
+    mutationFn: ({ id, userId }) => leaveRoom(id, userId),
+    onSuccess: () => {
+      toast.success("Left the room successfully");
+    },
+    onError: () => {
+      toast.error("Failed to leave the room");
+    },
+  });
+
   function handleJoinRoom() {
     mutate({ id, userId });
     // console.log(id, userId);
@@ -26,6 +36,11 @@ function Room({ room }) {
 
   function handleDetails() {
     navigate(`/rooms/${id}`);
+  }
+
+  function handleLeaveRoom() {
+    mutateLeave({ id, userId });
+    // console.log("leave room");
   }
 
   return (
@@ -53,6 +68,7 @@ function Room({ room }) {
           <div>
             <Button onClick={handleDetails}>details</Button>
             <Button onClick={handleJoinRoom}>join</Button>
+            <Button onClick={handleLeaveRoom}>leave</Button>
           </div>
         </div>
       </div>

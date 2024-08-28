@@ -49,3 +49,35 @@ export async function JoinRoom(roomId, userId) {
 
   return data;
 }
+
+
+// function to leave a project
+export async function leaveProject(projectId, userId) {
+  const { data, error } = await supabase
+    .from("members")
+    .delete()
+    .eq("projectId", projectId)
+    .eq("userId", userId);
+
+  if (error) {
+    console.log("error in leaving project", error);
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function leaveRoom(roomId, userId) {
+  const { data, error } = await supabase
+    .from("members")
+    .delete()
+    .eq("roomId", roomId)
+    .eq("userId", userId);
+
+  if (error) {
+    console.log("error in leaving project", error);
+    throw new Error(error.message);
+  }
+
+  return data;
+}
