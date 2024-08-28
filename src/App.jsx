@@ -8,6 +8,8 @@ import Home from "./ui/Home";
 import Rooms from "./pages/Rooms";
 import About from "./ui/About";
 import Dashboard from "./pages/Dashboard";
+import PageNotFound from "./ui/PageNotFound";
+import AuthForm from "./pages/AuthForm";
 
 // creating react query client
 const queryClient = new QueryClient({
@@ -30,6 +32,8 @@ function App() {
               <Route path="rooms" element={<Rooms />} />
               <Route path="about" element={<About />} />
               <Route path="dashboard" element={<Dashboard />} />
+              <Route path="auth" element={<AuthForm />} />
+              <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>
