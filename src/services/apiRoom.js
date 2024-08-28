@@ -1,4 +1,4 @@
-import { getUserName } from "./apiUser";
+import { getUserDetail } from "./apiUser";
 import supabase from "./supabase";
 
 // getting all rooms
@@ -38,10 +38,14 @@ export async function getRoomMembers(id) {
     throw new Error(error.message);
   }
 
-  let membersName = Promise.all(
+  let membersName = await Promise.all(
     members.map(async (member) => {
       try {
-        const name = await getUserName(member);
+        const [name] = await getUserDetail(member.userId);
+        const nameAndId = {
+          name: name.name,
+          id: name.id,
+        };
         return name;
       } catch (e) {
         console.log("error in getting room members name", e);

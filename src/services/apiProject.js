@@ -1,4 +1,4 @@
-import { getUserName } from "./apiUser";
+import { getUserDetail} from "./apiUser";
 import supabase from "./supabase";
 
 // getting all projects
@@ -43,19 +43,26 @@ export async function getProjectSkill(id) {
 export async function getProjectMembers(id) {
   let { data: members, error } = await supabase
     .from("members")
-    .select("userId")
+    .select("*")
     .eq("projectId", id);
+  // console.log(members);
 
   if (error) {
     console.log("error in getting project members", error);
     throw new Error(error.message);
   }
 
-  let membersName = Promise.all(
+  let membersName = await Promise.all(
     members.map(async (member) => {
       try {
-        const name = await getUserName(member);
-        return name;
+        // console.log(member);
+        const [user] = await getUserDetail(member.userId);
+
+        const nameAndId = {
+          name: user.name,
+          id: user.id,
+        };
+        return nameAndId;
       } catch (e) {
         console.log("error in getting project members name", e);
         throw new Error(e.message);
@@ -63,7 +70,9 @@ export async function getProjectMembers(id) {
     })
   );
 
+  // console.log(membersName);
   return membersName;
+  // return member;
 }
 
 // getting project owned by a user

@@ -25,7 +25,7 @@ function Dashboard() {
     queryFn: () => getProjectOwned(userId),
   });
 
-  console.log(projectsOwned);
+  // console.log(projectsOwned);
 
   const { data: roomsOwned } = useQuery({
     queryKey: ["roomsOwned"],
@@ -39,7 +39,7 @@ function Dashboard() {
     queryFn: () => getProjectJoined(userId),
   });
 
-  console.log(projectsJoined);
+  // console.log(projectsJoined);
 
   const { data: roomsJoined } = useQuery({
     queryKey: ["roomsJoined"],

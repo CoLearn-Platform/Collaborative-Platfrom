@@ -1,5 +1,13 @@
+import { useNavigate } from "react-router";
+import Button from "../../ui/Button";
+
 function Room({ room }) {
-  const { title, description, created_at, place, visibility } = room;
+  const navigate = useNavigate();
+  const { id, title, description, created_at, place, visibility } = room;
+
+  function handleDetails() {
+    navigate(`/rooms/${id}`);
+  }
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-4">
@@ -22,6 +30,10 @@ function Room({ room }) {
           </div>
           <div className="text-gray-600">
             <strong>Location:</strong> {place}
+          </div>
+          <div>
+            <Button onClick={handleDetails}>details</Button>
+            <Button>join</Button>
           </div>
         </div>
       </div>

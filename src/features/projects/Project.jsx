@@ -1,5 +1,10 @@
+import { useNavigate } from "react-router";
+import Button from "../../ui/Button";
+
 function Project({ project }) {
+  const navigate = useNavigate();
   const {
+    id,
     title,
     description,
     created_at,
@@ -8,6 +13,10 @@ function Project({ project }) {
     status,
     visibility,
   } = project;
+
+  function handleDetails() {
+    navigate(`/projects/${id}`);
+  }
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-4">
@@ -49,6 +58,10 @@ function Project({ project }) {
               >
                 {repository}
               </a>
+              <div>
+                <Button onClick={handleDetails}>details</Button>
+                <Button>join</Button>
+              </div>
             </div>
           )}
         </div>

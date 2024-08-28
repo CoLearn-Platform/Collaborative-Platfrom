@@ -10,6 +10,8 @@ import About from "./ui/About";
 import Dashboard from "./pages/Dashboard";
 import PageNotFound from "./ui/PageNotFound";
 import AuthForm from "./pages/AuthForm";
+import ProjectDetails from "./features/projects/ProjectDetails";
+import RoomDetails from "./features/rooms/RoomDetails";
 
 // creating react query client
 const queryClient = new QueryClient({
@@ -29,7 +31,9 @@ function App() {
               <Route index element={<Navigate replace to="home" />} />
               <Route path="home" element={<Home />} />
               <Route path="projects" element={<Projects />} />
+              <Route path="projects/:projectId" element={<ProjectDetails />} />
               <Route path="rooms" element={<Rooms />} />
+              <Route path="rooms/:roomId" element={<RoomDetails />} />
               <Route path="about" element={<About />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="auth" element={<AuthForm />} />
