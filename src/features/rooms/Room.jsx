@@ -1,9 +1,28 @@
 import { useNavigate } from "react-router";
 import Button from "../../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { JoinRoom } from "../../services/apiUser";
 
 function Room({ room }) {
+  const userId = 1;
   const navigate = useNavigate();
   const { id, title, description, created_at, place, visibility } = room;
+
+  const { mutate, isLoading: isJoining } = useMutation({
+    mutationFn: ({ id, userId }) => JoinRoom(id, userId),
+    onSuccess: () => {
+      toast.success("Joined the room successfully");
+    },
+    onError: () => {
+      toast.error("Failed to join the room");
+    },
+  });
+
+  function handleJoinRoom() {
+    mutate({ id, userId });
+    // console.log(id, userId);
+  }
 
   function handleDetails() {
     navigate(`/rooms/${id}`);
@@ -33,7 +52,7 @@ function Room({ room }) {
           </div>
           <div>
             <Button onClick={handleDetails}>details</Button>
-            <Button>join</Button>
+            <Button onClick={handleJoinRoom}>join</Button>
           </div>
         </div>
       </div>

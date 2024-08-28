@@ -1,4 +1,4 @@
-import { getUserDetail} from "./apiUser";
+import { getUserDetail } from "./apiUser";
 import supabase from "./supabase";
 
 // getting all projects

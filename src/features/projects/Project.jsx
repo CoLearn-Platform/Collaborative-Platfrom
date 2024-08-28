@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router";
 import Button from "../../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import { JoinProject } from "../../services/apiUser";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 function Project({ project }) {
+  const userId = 1;
   const navigate = useNavigate();
   const {
     id,
@@ -13,6 +18,21 @@ function Project({ project }) {
     status,
     visibility,
   } = project;
+
+  const { mutate, isLoading: isJoining } = useMutation({
+    mutationFn: ({ id, userId }) => JoinProject(id, userId),
+    onSuccess: () => {
+      toast.success("Joined the project successfully");
+    },
+    onError: () => {
+      toast.error("Failed to join the project");
+    },
+  });
+
+  function handleJoinProject() {
+    mutate({ id, userId });
+    // console.log(id, userId);
+  }
 
   function handleDetails() {
     navigate(`/projects/${id}`);
@@ -60,7 +80,7 @@ function Project({ project }) {
               </a>
               <div>
                 <Button onClick={handleDetails}>details</Button>
-                <Button>join</Button>
+                <Button onClick={handleJoinProject}>join</Button>
               </div>
             </div>
           )}
