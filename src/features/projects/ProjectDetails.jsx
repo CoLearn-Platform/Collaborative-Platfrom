@@ -5,13 +5,16 @@ import { useProjectMembers } from "./useProjectMembers";
 
 import Loader from "../../ui/Loader";
 import Button from "../../ui/Button";
+import { useJoinProject } from "./useJoinProject";
 
 function ProjectDetails() {
+  const userId = 1;
   const { projectId } = useParams();
   const navigate = useNavigate();
   // console.log(typeof projectId);
   //fetching project details
   const { details, error, isLoading } = useProjectDetail(projectId);
+  const { mutateJoinProject, isJoining } = useJoinProject();
 
   const {
     description,
@@ -21,6 +24,7 @@ function ProjectDetails() {
     repository,
     visibility,
     created_at,
+    status,
   } = details[0];
 
   //fetching project members
@@ -28,6 +32,10 @@ function ProjectDetails() {
 
   function handleNavigateBack() {
     navigate(-1);
+  }
+
+  function handleJoinProject() {
+    mutateJoinProject({ id: projectId, userId });
   }
 
   if (isLoading) return <Loader />;
@@ -70,11 +78,16 @@ function ProjectDetails() {
       <ul className="list-disc list-inside">
         {projectMembers?.map((member, index) => (
           <li key={member.id} className="text-gray-700">
-            {member.name}
+            <a href="#" style={{ textDecoration: "underline" }}>
+              {member.name}
+            </a>
           </li>
         ))}
       </ul>
-      <Button onClick={handleNavigateBack}>Back</Button>
+      <div className="mt-4 flex space-x-4">
+        <Button onClick={handleNavigateBack}>Back</Button>
+        <Button onClick={handleJoinProject}>Join</Button>
+      </div>
     </div>
   );
 }

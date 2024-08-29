@@ -5,13 +5,16 @@ import { useRoomMembers } from "./useRoomMembers";
 
 import Loader from "../../ui/Loader";
 import Button from "../../ui/Button";
+import { useJoinRoom } from "./useJoinRoom";
 
 function RoomDetails() {
+  const userId = 1;
   const { roomId } = useParams();
   const navigate = useNavigate();
 
   //fetching room details
   const { details, error, isLoading } = useRoomDetail(roomId);
+  const { mutateJoinRoom, isJoining } = useJoinRoom();
 
   //   console.log(details)
 
@@ -25,6 +28,10 @@ function RoomDetails() {
 
   function handleNavigateBack() {
     navigate(-1);
+  }
+
+  function handleJoinRoom() {
+    mutateJoinRoom({ id: roomId, userId });
   }
 
   if (isLoading) return <Loader />;
@@ -53,11 +60,16 @@ function RoomDetails() {
       <ul className="list-disc list-inside">
         {roomMembers?.map((member, index) => (
           <li key={member.id} className="text-gray-700">
-            {member.name}
+            <a href="#" style={{ textDecoration: "underline" }}>
+              {member.name}
+            </a>
           </li>
         ))}
       </ul>
-      <Button onClick={handleNavigateBack}>Back</Button>
+      <div className="mt-4 flex space-x-4">
+        <Button onClick={handleNavigateBack}>Back</Button>
+        <Button onClick={handleJoinRoom}>Join</Button>
+      </div>
     </div>
   );
 }

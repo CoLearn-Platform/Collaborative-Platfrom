@@ -18,9 +18,9 @@ function Project({ project, pageType }) {
     visibility,
   } = project;
 
-  const { mutateJoinProject, isJoining } = useJoinProject(id, userId);
+  const { mutateJoinProject, isJoining } = useJoinProject();
 
-  const { mutateLeave, isLeaving } = useLeaveProject(id, userId);
+  const { mutateLeave, isLeaving } = useLeaveProject();
 
   function handleJoinProject() {
     mutateJoinProject({ id, userId });

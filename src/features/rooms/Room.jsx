@@ -10,12 +10,12 @@ function Room({ room, pageType }) {
   const navigate = useNavigate();
   const { id, title, description, created_at, place, visibility } = room;
 
-  const { mutateJoinRoom, isJoining } = useJoinRoom(id, userId);
+  const { mutateJoinRoom, isJoining } = useJoinRoom();
 
-  const { mutateLeaveRoom, isLeaving } = useLeaveRoom(id, userId);
+  const { mutateLeaveRoom, isLeaving } = useLeaveRoom();
 
   function handleJoinRoom() {
-    mutateLeaveRoom({ id, userId });
+    mutateJoinRoom({ id, userId });
     // console.log(id, userId);
   }
 
