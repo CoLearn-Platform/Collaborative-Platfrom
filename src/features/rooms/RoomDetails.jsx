@@ -1,31 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
-import { getRoomDetail, getRoomMembers } from "../../services/apiRoom";
+import { useRoomDetail } from "./useRoomDetail";
+import { useRoomMembers } from "./useRoomMembers";
 
 import Loader from "../../ui/Loader";
 
 function RoomDetails() {
   const { roomId } = useParams();
 
-  const {
-    data: details,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["rooms"],
-    queryFn: () => getRoomDetail(roomId),
-  });
+  //fetching room details
+  const { details, error, isLoading } = useRoomDetail(roomId);
 
   //   console.log(details)
 
   const { title, created_at, createdBy, description, place, visibility } =
     details[0];
 
-  const { data: roomMembers } = useQuery({
-    queryKey: ["members", roomId],
-    queryFn: ({ queryKey }) => getRoomMembers(queryKey[1]),
-  });
+  //fetching room members
+  const { roomMembers } = useRoomMembers(roomId);
 
   // console.log(roomMembers);
 

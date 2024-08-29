@@ -1,24 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-
-import { createNewRoom } from "../../services/apiRoom";
 
 import Button from "../../ui/Button";
-import toast from "react-hot-toast";
+import { useCreateRoom } from "./useCreateRoom";
 
 function CreateRoomForm({ setShowForm }) {
   const { register, handleSubmit } = useForm();
   const userId = 1;
 
-  const { mutate: createRoom, isLoading: isCreating } = useMutation({
-    mutationFn: (newRoom) => createNewRoom(newRoom),
-    onSuccess: () => {
-      toast.success("Room created successfully");
-    },
-    onError: () => {
-      toast.error("Failed to create room");
-    },
-  });
+  const { createRoom, isCreating } = useCreateRoom();
 
   function onSubmit(data) {
     createRoom(data);

@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
 
-import { JoinProject, leaveProject } from "../../services/apiUser";
-
+import { useJoinProject } from "./useJoinProject";
+import { useLeaveProject } from "./useLeaveProject";
 import Button from "../../ui/Button";
-import toast from "react-hot-toast";
 
 function Project({ project, pageType }) {
   const userId = 1;
@@ -20,28 +18,12 @@ function Project({ project, pageType }) {
     visibility,
   } = project;
 
-  const { mutate, isLoading: isJoining } = useMutation({
-    mutationFn: ({ id, userId }) => JoinProject(id, userId),
-    onSuccess: () => {
-      toast.success("Joined the project successfully");
-    },
-    onError: () => {
-      toast.error("Failed to join the project");
-    },
-  });
+  const { mutateJoinProject, isJoining } = useJoinProject(id, userId);
 
-  const { mutate: mutateLeave, isLoading: isLeaving } = useMutation({
-    mutationFn: ({ id, userId }) => leaveProject(id, userId),
-    onSuccess: () => {
-      toast.success("Left the project successfully");
-    },
-    onError: () => {
-      toast.error("Failed to leave the project");
-    },
-  });
+  const { mutateLeave, isLeaving } = useLeaveProject(id, userId);
 
   function handleJoinProject() {
-    mutate({ id, userId });
+    mutateJoinProject({ id, userId });
     // console.log(id, userId);
   }
 

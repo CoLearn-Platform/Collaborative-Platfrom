@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router";
-import { useMutation } from "@tanstack/react-query";
 
-import { JoinRoom, leaveRoom } from "../../services/apiUser";
+import { useJoinRoom } from "./useJoinRoom";
+import { useLeaveRoom } from "./useLeaveRoom";
 
-import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 
 function Room({ room, pageType }) {
@@ -11,28 +10,12 @@ function Room({ room, pageType }) {
   const navigate = useNavigate();
   const { id, title, description, created_at, place, visibility } = room;
 
-  const { mutate, isLoading: isJoining } = useMutation({
-    mutationFn: ({ id, userId }) => JoinRoom(id, userId),
-    onSuccess: () => {
-      toast.success("Joined the room successfully");
-    },
-    onError: () => {
-      toast.error("Failed to join the room");
-    },
-  });
+  const { mutateJoinRoom, isJoining } = useJoinRoom(id, userId);
 
-  const { mutate: mutateLeave, isLoading: isLeaving } = useMutation({
-    mutationFn: ({ id, userId }) => leaveRoom(id, userId),
-    onSuccess: () => {
-      toast.success("Left the room successfully");
-    },
-    onError: () => {
-      toast.error("Failed to leave the room");
-    },
-  });
+  const { mutateLeaveRoom, isLeaving } = useLeaveRoom(id, userId);
 
   function handleJoinRoom() {
-    mutate({ id, userId });
+    mutateLeaveRoom({ id, userId });
     // console.log(id, userId);
   }
 

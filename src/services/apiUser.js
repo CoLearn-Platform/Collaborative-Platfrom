@@ -15,7 +15,7 @@ export async function getUserDetail(id) {
 
 // function to join a project
 
-export async function JoinProject(projectId, userId) {
+export async function joinProject(projectId, userId) {
   // console.log(projectId, userId);
   const { data, error } = await supabase
     .from("members")

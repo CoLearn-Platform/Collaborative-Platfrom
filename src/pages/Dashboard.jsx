@@ -1,57 +1,32 @@
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { getUserDetail } from "../services/apiUser";
-import { getProjectJoined, getProjectOwned } from "../services/apiProject";
-import { getRoomJoined, getRoomOwned } from "../services/apiRoom";
-
-import Loader from "../ui/Loader";
+import { useGetUserDetail } from "../features/user/useGetUserDetail";
+import { useProjectOwned } from "../features/projects/useProjectsOwned";
+import { useProjectJoined } from "../features/projects/useProjectsJoined";
+import { useRoomsOwned } from "../features/rooms/useRoomsOwned";
+import { useRoomsJoined } from "../features/rooms/useRoomsJoined";
 
 import Project from "../features/projects/Project";
 import Room from "../features/rooms/Room";
 import CreateProjectForm from "../features/projects/CreateProjectForm";
 import CreateRoomForm from "../features/rooms/CreateRoomForm";
 import UserCard from "../features/user/UserCard";
+import Loader from "../ui/Loader";
 
 function Dashboard() {
   const userId = 1;
   const [showForm, setShowForm] = useState("dashboard");
+
   // Fetch user details
-  const {
-    data: user,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => getUserDetail(userId),
-  });
+  const { user, isLoading, error } = useGetUserDetail(userId);
 
   // Fetching details of projects and rooms owned and joined by the user
-  const { data: projectsOwned } = useQuery({
-    queryKey: ["projectsOwned"],
-    queryFn: () => getProjectOwned(userId),
-  });
-
-  // console.log(projectsOwned);
-
-  const { data: roomsOwned } = useQuery({
-    queryKey: ["roomsOwned"],
-    queryFn: () => getRoomOwned(userId),
-  });
+  const { projectsOwned } = useProjectOwned(userId);
+  const { roomsOwned } = useRoomsOwned(userId);
 
   // Fetching details of projects and rooms joined by the user
-
-  const { data: projectsJoined } = useQuery({
-    queryKey: ["projectsJoined"],
-    queryFn: () => getProjectJoined(userId),
-  });
-
-  // console.log(projectsJoined);
-
-  const { data: roomsJoined } = useQuery({
-    queryKey: ["roomsJoined"],
-    queryFn: () => getRoomJoined(userId),
-  });
+  const { projectsJoined } = useProjectJoined(userId);
+  const { roomsJoined } = useRoomsJoined(userId);
 
   if (isLoading) return <Loader />;
 

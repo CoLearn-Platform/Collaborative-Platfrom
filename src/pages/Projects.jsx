@@ -1,19 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllProjects } from "../services/apiProject";
 import { useState } from "react";
 
+import { useGetAllProjects } from "../features/projects/useGetAllProjects";
+
 import Loader from "../ui/Loader";
-import Project from "../features/projects/Project"; // Adjust the path according to your file structure
+import Project from "../features/projects/Project"; 
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("default");
   const [filterStatus, setFilterStatus] = useState("all");
-  const {
-    data: projects,
-    isLoading,
-    error,
-  } = useQuery({ queryKey: ["projects"], queryFn: getAllProjects });
+  const { projects, isLoading, error } = useGetAllProjects();
 
   if (isLoading) return <Loader />;
   if (error) return <div className="text-red-500">Error loading projects</div>;

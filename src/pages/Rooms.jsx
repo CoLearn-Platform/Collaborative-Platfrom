@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-import { getAllRooms } from "../services/apiRoom";
+import { useGetAllRooms } from "../features/rooms/useGetAllRooms";
 
 import Loader from "../ui/Loader";
 import Room from "../features/rooms/Room";
@@ -11,14 +10,7 @@ function Rooms() {
   const [sortOrder, setSortOrder] = useState("default");
   const [filterStatus, setFilterStatus] = useState("all");
 
-  const {
-    data: rooms,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["rooms"],
-    queryFn: getAllRooms,
-  });
+  const { rooms, isLoading, error } = useGetAllRooms();
 
   if (isLoading) return <Loader />;
   if (error) return <div className="text-red-500">Error loading rooms</div>;

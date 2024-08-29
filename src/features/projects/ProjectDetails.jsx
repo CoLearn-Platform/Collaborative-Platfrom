@@ -1,22 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
-import { getProjectDetail, getProjectMembers } from "../../services/apiProject";
+import { useProjectDetail } from "./useProjectDetail";
+import { useProjectMembers } from "./useProjectMembers";
 
 import Loader from "../../ui/Loader";
 
 function ProjectDetails() {
   const { projectId } = useParams();
   // console.log(typeof projectId);
-
-  const {
-    data: details,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["projects"],
-    queryFn: () => getProjectDetail(projectId),
-  });
+  //fetching project details
+  const { details, error, isLoading } = useProjectDetail(projectId);
 
   const {
     description,
@@ -28,13 +21,8 @@ function ProjectDetails() {
     created_at,
   } = details[0];
 
-  const { data: projectMembers } = useQuery({
-    queryKey: ["members", projectId],
-    queryFn: ({ queryKey }) => getProjectMembers(queryKey[1]),
-  });
-
-  // console.log(projectMembers);
-  // console.log(details);
+  //fetching project members
+  const { projectMembers } = useProjectMembers(projectId);
 
   if (isLoading) return <Loader />;
 
