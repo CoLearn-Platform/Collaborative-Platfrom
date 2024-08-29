@@ -5,6 +5,11 @@ import Button from "./Button";
 
 function Header() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function toggleMenu() {
+    setIsMenuOpen((prevState) => !prevState);
+  }
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -43,7 +48,70 @@ function Header() {
 
           {/* Mobile Menu */}
           <div className="md:hidden">
-            <Button>Menu</Button>
+            <Button onClick={toggleMenu}>Menu</Button>
+          </div>
+
+          {/* Menu Container */}
+          <div
+            className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform transition-transform ${
+              isMenuOpen ? "translate-x-0" : "translate-x-full"
+            } md:hidden`}
+          >
+            <div className="p-4">
+              <button
+                onClick={toggleMenu}
+                className="text-gray-600 hover:text-blue-500"
+              >
+                <span className="text-2xl">×</span> {/* Close icon */}
+              </button>
+              <nav className="mt-4 space-y-4">
+                <Link
+                  to="/"
+                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                  onClick={toggleMenu}
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/projects"
+                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                  onClick={toggleMenu}
+                >
+                  Projects
+                </Link>
+                <Link
+                  to="/rooms"
+                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                  onClick={toggleMenu}
+                >
+                  Learning Rooms
+                </Link>
+                <Link
+                  to="/about"
+                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                  onClick={toggleMenu}
+                >
+                  About Us
+                </Link>
+                {isAuthenticated ? (
+                  <Link
+                    to="/dashboard"
+                    className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                    onClick={toggleMenu}
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                    onClick={toggleMenu}
+                  >
+                    Login
+                  </Link>
+                )}
+              </nav>
+            </div>
           </div>
 
           {/* Action Button */}

@@ -1,12 +1,14 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { useRoomDetail } from "./useRoomDetail";
 import { useRoomMembers } from "./useRoomMembers";
 
 import Loader from "../../ui/Loader";
+import Button from "../../ui/Button";
 
 function RoomDetails() {
   const { roomId } = useParams();
+  const navigate = useNavigate();
 
   //fetching room details
   const { details, error, isLoading } = useRoomDetail(roomId);
@@ -20,6 +22,10 @@ function RoomDetails() {
   const { roomMembers } = useRoomMembers(roomId);
 
   // console.log(roomMembers);
+
+  function handleNavigateBack() {
+    navigate(-1);
+  }
 
   if (isLoading) return <Loader />;
 
@@ -51,6 +57,7 @@ function RoomDetails() {
           </li>
         ))}
       </ul>
+      <Button onClick={handleNavigateBack}>Back</Button>
     </div>
   );
 }

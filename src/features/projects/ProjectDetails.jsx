@@ -1,12 +1,14 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { useProjectDetail } from "./useProjectDetail";
 import { useProjectMembers } from "./useProjectMembers";
 
 import Loader from "../../ui/Loader";
+import Button from "../../ui/Button";
 
 function ProjectDetails() {
   const { projectId } = useParams();
+  const navigate = useNavigate();
   // console.log(typeof projectId);
   //fetching project details
   const { details, error, isLoading } = useProjectDetail(projectId);
@@ -23,6 +25,10 @@ function ProjectDetails() {
 
   //fetching project members
   const { projectMembers } = useProjectMembers(projectId);
+
+  function handleNavigateBack() {
+    navigate(-1);
+  }
 
   if (isLoading) return <Loader />;
 
@@ -68,6 +74,7 @@ function ProjectDetails() {
           </li>
         ))}
       </ul>
+      <Button onClick={handleNavigateBack}>Back</Button>
     </div>
   );
 }
