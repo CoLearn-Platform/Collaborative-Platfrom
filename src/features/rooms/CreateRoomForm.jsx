@@ -1,10 +1,26 @@
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import { createNewRoom } from "../../services/apiRoom";
+import toast from "react-hot-toast";
 
 function CreateRoomForm({ setShowForm }) {
   const { register, handleSubmit } = useForm();
+  const userId = 1;
+
+  const { mutate: createRoom, isLoading: isCreating } = useMutation({
+    mutationFn: (newRoom) => createNewRoom(newRoom),
+    onSuccess: () => {
+      toast.success("Room created successfully");
+    },
+    onError: () => {
+      toast.error("Failed to create room");
+    },
+  });
+
   function onSubmit(data) {
-    console.log(data);
+    createRoom(data);
+    // console.log(data);
   }
   return (
     <div>
@@ -16,6 +32,8 @@ function CreateRoomForm({ setShowForm }) {
           <h2 className="text-2xl font-bold text-center mb-6">
             Create New Room
           </h2>
+
+          <input value={userId} {...register("createdBy")} hidden />
 
           {/* Project Title */}
           <div className="mb-4">
@@ -42,20 +60,6 @@ function CreateRoomForm({ setShowForm }) {
               required
             />
           </div>
-
-          {/* Project Status */}
-          <div className="mb-4">
-            <label className="block text-gray-700">Status</label>
-            <select
-              name="status"
-              {...register("status", { required: true })}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="OPEN">OPEN</option>
-              <option value="CLOSED">CLOSED</option>
-            </select>
-          </div>
-
           {/* Project Visibility */}
           <div className="mb-4">
             <label className="block text-gray-700">Visibility</label>
@@ -85,7 +89,7 @@ function CreateRoomForm({ setShowForm }) {
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
           >
-            Create Project
+            Create Room
           </button>
         </form>
       </div>

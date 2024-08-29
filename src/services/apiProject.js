@@ -117,3 +117,35 @@ export async function getProjectJoined(userId) {
 
   return projectsDetails;
 }
+
+// creating a new project
+
+export async function createNewProject(data) {
+  const { data: newProject, error } = await supabase
+    .from("projects")
+    .insert([data])
+    .select();
+
+  if (error) {
+    console.log("error in creating new project", error);
+    throw new Error(error.message);
+  }
+  // also add the user as the leader of the project
+
+  const { projectId, created_by: userId } = newProject[0];
+
+  const { data: member, error: errorInAddingMembership } = await supabase
+    .from("members")
+    .insert([{ userId: userId, projectId: projectId, role: "leader" }])
+    .select();
+
+  if (errorInAddingMembership) {
+    // now deleting the project if the user is not added as leader
+    await supabase.from("projects").delete().eq("projectId", projectId);
+
+    console.log("error in adding user as leader of the project", error);
+    throw new Error(error.message);
+  }
+
+  return newProject;
+}

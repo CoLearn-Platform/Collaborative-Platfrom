@@ -99,3 +99,36 @@ export async function getRoomJoined(id) {
 
   return roomsDetails;
 }
+
+// creating a new room
+export async function createNewRoom(data) {
+  console.log(data);
+  const { data: newRoom, error } = await supabase
+    .from("rooms")
+    .insert([data])
+    .select();
+
+  if (error) {
+    // console.log("error in creating new room", error);
+    throw new Error(error.message);
+  }
+
+  // also add the user as a member of the room
+
+  const { roomId, createdBy } = newRoom[0];
+
+  const { data: newMember, error: memberError } = await supabase
+    .from("members")
+    .insert([{ userId: createdBy, roomId: roomId, role: "admin" }])
+    .select();
+
+  if (memberError) {
+    // if there is an error in adding the user as a member of the room, delete the room
+    await supabase.from("rooms").delete().eq("id", roomId);
+
+    console.log("error in creating new member", memberError);
+    throw new Error(memberError.message);
+  }
+
+  return newRoom;
+}

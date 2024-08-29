@@ -1,11 +1,26 @@
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import { createNewProject } from "../../services/apiProject";
+import toast from "react-hot-toast";
 
 function CreateProjectForm({ setShowForm }) {
   const { register, handleSubmit } = useForm();
+  const userId = 1;
+
+  const { mutate: createProject, isLoading: isCreating } = useMutation({
+    mutationFn: (newProject) => createNewProject(newProject),
+    onSuccess: () => {
+      toast.success("Project created successfully");
+    },
+    onError: () => {
+      toast.error("Failed to create project");
+    },
+  });
 
   function onSubmit(data) {
-    console.log(data);
+    // console.log(data);
+    createProject(data);
   }
 
   return (
@@ -18,6 +33,8 @@ function CreateProjectForm({ setShowForm }) {
           <h2 className="text-2xl font-bold text-center mb-6">
             Create New Project
           </h2>
+
+          <input value={userId} {...register("created_by")} hidden />
 
           {/* Project Title */}
           <div className="mb-4">
