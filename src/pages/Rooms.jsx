@@ -30,25 +30,27 @@ function Rooms() {
     });
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-center">Rooms</h1>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
+        Rooms
+      </h1>
 
       {/* Search, Filter, and Sort Section */}
-      <div className="flex flex-col md:flex-row justify-between mb-6">
+      <div className="flex flex-col md:flex-row justify-between mb-8 space-y-4 md:space-y-0">
         {/* Search Input */}
         <input
           type="text"
-          placeholder="Search Projects..."
+          placeholder="Search Rooms..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md mb-4 md:mb-0 md:mr-4 flex-grow"
+          className="p-3 border border-gray-300 rounded-md flex-grow md:mr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         {/* Filter Dropdown */}
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md mb-4 md:mb-0 md:mr-4"
+          className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="all">All Rooms</option>
           <option value="open">Open Rooms</option>
@@ -59,7 +61,7 @@ function Rooms() {
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md"
+          className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="default">Sort By</option>
           <option value="asc">Title: A-Z</option>
@@ -67,7 +69,7 @@ function Rooms() {
         </select>
       </div>
 
-      {/* Projects List */}
+      {/* Rooms List */}
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredRooms?.length > 0 ? (
           filteredRooms?.map((room) => (

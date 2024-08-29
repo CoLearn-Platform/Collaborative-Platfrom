@@ -12,42 +12,49 @@ function Header() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="text-2xl font-bold text-blue-500">CoLearn</div>
+
           {/* Navigation */}
-          <nav className="flex space-x-6">
+          <nav className="hidden md:flex space-x-6">
             <Link
               to="/"
-              className="text-gray-600 hover:text-blue-500 font-semibold"
+              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
             >
               Home
             </Link>
             <Link
               to="/projects"
-              className="text-gray-600 hover:text-blue-500 font-semibold"
+              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
             >
               Projects
             </Link>
             <Link
               to="/rooms"
-              className="text-gray-600 hover:text-blue-500 font-semibold"
+              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
             >
               Learning Rooms
             </Link>
             <Link
               to="/about"
-              className="text-gray-600 hover:text-blue-500 font-semibold"
+              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
             >
               About Us
             </Link>
           </nav>
+
+          {/* Mobile Menu */}
+          <div className="md:hidden">
+            <Button>Menu</Button>
+          </div>
+
           {/* Action Button */}
-          <div>
+          <div className="hidden md:flex">
             {isAuthenticated ? (
               <Link to="/dashboard">
                 <Button>Dashboard</Button>
               </Link>
             ) : (
               <Link to="/auth">
-                <Button styleType="login">login</Button>
+                <Button styleType="login">Login</Button>
               </Link>
             )}
           </div>

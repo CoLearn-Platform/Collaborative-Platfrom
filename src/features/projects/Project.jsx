@@ -41,6 +41,7 @@ function Project({ project, pageType }) {
       <div className="px-6 py-4">
         {/* Project Title */}
         <h2 className="text-xl font-bold text-blue-500 mb-2">{title}</h2>
+
         {/* Project Status */}
         <div className="flex items-center mb-4">
           <span
@@ -54,8 +55,10 @@ function Project({ project, pageType }) {
             • {visibility ? "Public" : "Private"}
           </span>
         </div>
+
         {/* Project Description */}
         <p className="text-gray-700 mb-4">{description}</p>
+
         {/* Project Details */}
         <div className="flex flex-col space-y-2">
           <div className="text-gray-600">
@@ -76,21 +79,31 @@ function Project({ project, pageType }) {
               >
                 {repository}
               </a>
-              <div>
-                {(pageType === "projects" || pageType === "rooms") && (
-                  <>
-                    <Button onClick={handleDetails}>details</Button>
-                    <Button onClick={handleJoinProject}>join</Button>
-                  </>
-                )}
-                {pageType === "dashboard" && (
-                  <>
-                    <Button onClick={handleDetails}>details</Button>
-                    <Button onClick={handleLeaveProject}>Leave</Button>
-                  </>
-                )}
-              </div>
             </div>
+          )}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="mt-4 flex space-x-4">
+          {pageType === "projects" && (
+            <>
+              <Button onClick={handleDetails} disabled={isJoining}>
+                Details
+              </Button>
+              <Button onClick={handleJoinProject} disabled={isJoining}>
+                {isJoining ? "Joining..." : "Join"}
+              </Button>
+            </>
+          )}
+          {pageType === "dashboard" && (
+            <>
+              <Button onClick={handleDetails} disabled={isLeaving}>
+                Details
+              </Button>
+              <Button onClick={handleLeaveProject} disabled={isLeaving}>
+                {isLeaving ? "Leaving..." : "Leave"}
+              </Button>
+            </>
           )}
         </div>
       </div>

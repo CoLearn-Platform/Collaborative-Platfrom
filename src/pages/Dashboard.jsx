@@ -36,12 +36,12 @@ function Dashboard() {
         {/* User Info Card */}
         <UserCard user={user[0]} setShowForm={setShowForm} />
 
-        {/* add new project form */}
+        {/* Add New Project Form */}
         {showForm === "newProjectForm" && (
           <CreateProjectForm setShowForm={setShowForm} />
         )}
 
-        {/* add new room form */}
+        {/* Add New Room Form */}
         {showForm === "newRoomForm" && (
           <CreateRoomForm setShowForm={setShowForm} />
         )}
@@ -49,16 +49,17 @@ function Dashboard() {
         {/* User Projects and Rooms */}
         {showForm === "dashboard" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Projects Joined */}
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-gray-700 mb-4">
                   Projects Joined
                 </h2>
                 {projectsJoined?.length > 0 ? (
-                  projectsJoined.map((project, index) => (
+                  projectsJoined.map((project) => (
                     <Project
                       project={project}
-                      key={index}
+                      key={project.id}
                       pageType="dashboard"
                     />
                   ))
@@ -68,16 +69,17 @@ function Dashboard() {
               </div>
             </div>
 
+            {/* Projects Owned */}
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-gray-700 mb-4">
                   Projects Owned
                 </h2>
                 {projectsOwned?.length > 0 ? (
-                  projectsOwned.map((project, index) => (
+                  projectsOwned.map((project) => (
                     <Project
                       project={project}
-                      key={index}
+                      key={project.id}
                       pageType="dashboard"
                     />
                   ))
@@ -87,14 +89,15 @@ function Dashboard() {
               </div>
             </div>
 
+            {/* Rooms Joined */}
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-gray-700 mb-4">
                   Rooms Joined
                 </h2>
                 {roomsJoined?.length > 0 ? (
-                  roomsJoined.map((room, index) => (
-                    <Room room={room} key={index} pageType="dashboard" />
+                  roomsJoined.map((room) => (
+                    <Room room={room} key={room.id} pageType="dashboard" />
                   ))
                 ) : (
                   <p className="text-gray-500">No rooms joined</p>
@@ -102,14 +105,15 @@ function Dashboard() {
               </div>
             </div>
 
+            {/* Rooms Owned */}
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-gray-700 mb-4">
                   Rooms Owned
                 </h2>
                 {roomsOwned?.length > 0 ? (
-                  roomsOwned.map((room, index) => (
-                    <Room room={room} key={index} pageType="dashboard" />
+                  roomsOwned.map((room) => (
+                    <Room room={room} key={room.id} pageType="dashboard" />
                   ))
                 ) : (
                   <p className="text-gray-500">No rooms owned</p>

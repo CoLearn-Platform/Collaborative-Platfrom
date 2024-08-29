@@ -24,24 +24,28 @@ function Room({ room, pageType }) {
   }
 
   function handleLeaveRoom() {
-    mutateLeave({ id, userId });
+    mutateLeaveRoom({ id, userId });
     // console.log("leave room");
   }
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-4">
       <div className="px-6 py-4">
-        {/* Project Title */}
+        {/* Room Title */}
         <h2 className="text-xl font-bold text-blue-500 mb-2">{title}</h2>
-        {/* Project Status */}
+        {/* Room Visibility */}
         <div className="flex items-center mb-4">
-          <span className="ml-2 text-gray-500">
-            • {visibility ? "Public" : "Private"}
+          <span
+            className={`text-sm font-medium ${
+              visibility ? "text-green-500" : "text-red-500"
+            }`}
+          >
+            {visibility ? "Public" : "Private"}
           </span>
         </div>
-        {/* Project Description */}
+        {/* Room Description */}
         <p className="text-gray-700 mb-4">{description}</p>
-        {/* Project Details */}
+        {/* Room Details */}
         <div className="flex flex-col space-y-2">
           <div className="text-gray-600">
             <strong>Created At:</strong>{" "}
@@ -50,16 +54,16 @@ function Room({ room, pageType }) {
           <div className="text-gray-600">
             <strong>Location:</strong> {place}
           </div>
-          <div>
+          <div className="flex space-x-2 mt-4">
             {(pageType === "projects" || pageType === "rooms") && (
               <>
-                <Button onClick={handleDetails}>details</Button>
-                <Button onClick={handleJoinRoom}>join</Button>
+                <Button onClick={handleDetails}>Details</Button>
+                <Button onClick={handleJoinRoom}>Join</Button>
               </>
             )}
             {pageType === "dashboard" && (
               <>
-                <Button onClick={handleDetails}>details</Button>
+                <Button onClick={handleDetails}>Details</Button>
                 <Button onClick={handleLeaveRoom}>Leave</Button>
               </>
             )}
