@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
+
 import { getRoomDetail, getRoomMembers } from "../../services/apiRoom";
+
 import Loader from "../../ui/Loader";
 
 function RoomDetails() {

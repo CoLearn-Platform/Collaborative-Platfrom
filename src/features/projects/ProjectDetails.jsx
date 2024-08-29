@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
+
 import { getProjectDetail, getProjectMembers } from "../../services/apiProject";
+
 import Loader from "../../ui/Loader";
 
 function ProjectDetails() {

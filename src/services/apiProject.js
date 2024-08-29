@@ -1,5 +1,6 @@
-import { getUserDetail } from "./apiUser";
 import supabase from "./supabase";
+
+import { getUserDetail } from "./apiUser";
 
 // getting all projects
 export async function getAllProjects() {

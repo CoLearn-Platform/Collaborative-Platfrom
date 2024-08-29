@@ -1,7 +1,6 @@
-// user detail with given id
-
 import supabase from "./supabase";
 
+// user detail with given id
 export async function getUserDetail(id) {
   let { data: user, error } = await supabase
     .from("users")

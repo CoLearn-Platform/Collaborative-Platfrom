@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router";
-import Button from "../../ui/Button";
 import { useMutation } from "@tanstack/react-query";
+
 import { JoinProject, leaveProject } from "../../services/apiUser";
+
+import Button from "../../ui/Button";
 import toast from "react-hot-toast";
-import { useState } from "react";
 
 function Project({ project }) {
   const userId = 1;

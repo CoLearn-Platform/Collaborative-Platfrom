@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../services/apiProject";
+import { useState } from "react";
+
 import Loader from "../ui/Loader";
 import Project from "../features/projects/Project"; // Adjust the path according to your file structure
-import { useState } from "react";
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState("");

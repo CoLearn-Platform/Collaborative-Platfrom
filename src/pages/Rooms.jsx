@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+
 import { getAllRooms } from "../services/apiRoom";
+
 import Loader from "../ui/Loader";
 import Room from "../features/rooms/Room";
-import { useState } from "react";
 
 function Rooms() {
   const [searchTerm, setSearchTerm] = useState("");

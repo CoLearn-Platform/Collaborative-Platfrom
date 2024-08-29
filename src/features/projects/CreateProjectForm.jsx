@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
-import Button from "../../ui/Button";
 import { useMutation } from "@tanstack/react-query";
+
 import { createNewProject } from "../../services/apiProject";
+
+import Button from "../../ui/Button";
 import toast from "react-hot-toast";
 
 function CreateProjectForm({ setShowForm }) {
@@ -113,12 +115,7 @@ function CreateProjectForm({ setShowForm }) {
           </div>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors"
-          >
-            Create Project
-          </button>
+          <Button type="submit">Create Project</Button>
         </form>
       </div>
       <Button onClick={() => setShowForm("dashboard")}>Back</Button>

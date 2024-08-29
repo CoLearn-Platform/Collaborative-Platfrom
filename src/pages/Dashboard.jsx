@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+
 import { getUserDetail } from "../services/apiUser";
-import Loader from "../ui/Loader";
 import { getProjectJoined, getProjectOwned } from "../services/apiProject";
 import { getRoomJoined, getRoomOwned } from "../services/apiRoom";
+
+import Loader from "../ui/Loader";
+
 import Project from "../features/projects/Project";
 import Room from "../features/rooms/Room";
-import Button from "../ui/Button";
-import { useState } from "react";
 import CreateProjectForm from "../features/projects/CreateProjectForm";
 import CreateRoomForm from "../features/rooms/CreateRoomForm";
+import UserCard from "../features/user/UserCard";
 
 function Dashboard() {
   const userId = 1;
@@ -52,46 +55,11 @@ function Dashboard() {
 
   if (isLoading) return <Loader />;
 
-  const { name, email, avatar, created_at: JoinedAt } = user[0];
-
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-5xl mx-auto">
         {/* User Info Card */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
-          <div className="p-6 bg-blue-500 text-white text-center">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
-          </div>
-          <div className="p-6 flex flex-col items-center">
-            <div className="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center">
-              {avatar ? (
-                <img
-                  src={avatar}
-                  alt="User Avatar"
-                  className="w-full h-full rounded-full"
-                />
-              ) : (
-                <span className="text-gray-500 text-2xl ">No Avatar</span>
-              )}
-            </div>
-            <div className="mt-4 text-center">
-              <h2 className="text-xl font-semibold">{name}</h2>
-              <p className="text-gray-600">{email}</p>
-              <p className="text-gray-500 text-sm">
-                Member since: {new Date(JoinedAt).toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-          <div>
-            <Button onClick={() => setShowForm("newProjectForm")}>
-              Add New Project{" "}
-            </Button>
-            <Button onClick={() => setShowForm("newRoomForm")}>
-              Add New Room{" "}
-            </Button>
-            <Button>edit profile </Button>
-          </div>
-        </div>
+        <UserCard user={user[0]} setShowForm={setShowForm} />
 
         {/* add new project form */}
         {showForm === "newProjectForm" && (

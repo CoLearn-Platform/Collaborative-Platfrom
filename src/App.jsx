@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./ui/AppLayout";
 import Projects from "./pages/Projects";
@@ -12,12 +13,11 @@ import PageNotFound from "./ui/PageNotFound";
 import AuthForm from "./pages/AuthForm";
 import ProjectDetails from "./features/projects/ProjectDetails";
 import RoomDetails from "./features/rooms/RoomDetails";
-import { Toaster } from "react-hot-toast";
 
 // creating react query client
 const queryClient = new QueryClient({
   defaultOptions: {
-    staleTime: 1000 * 60 * 1, // 1 minutes
+    staleTime: 0, // immediate background refetching
   },
 });
 
