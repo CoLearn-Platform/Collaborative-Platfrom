@@ -6,7 +6,7 @@ import { JoinProject, leaveProject } from "../../services/apiUser";
 import Button from "../../ui/Button";
 import toast from "react-hot-toast";
 
-function Project({ project }) {
+function Project({ project, pageType }) {
   const userId = 1;
   const navigate = useNavigate();
   const {
@@ -95,9 +95,18 @@ function Project({ project }) {
                 {repository}
               </a>
               <div>
-                <Button onClick={handleDetails}>details</Button>
-                <Button onClick={handleJoinProject}>join</Button>
-                <Button onClick={handleLeaveProject}>Leave</Button>
+                {(pageType === "projects" || pageType === "rooms") && (
+                  <>
+                    <Button onClick={handleDetails}>details</Button>
+                    <Button onClick={handleJoinProject}>join</Button>
+                  </>
+                )}
+                {pageType === "dashboard" && (
+                  <>
+                    <Button onClick={handleDetails}>details</Button>
+                    <Button onClick={handleLeaveProject}>Leave</Button>
+                  </>
+                )}
               </div>
             </div>
           )}

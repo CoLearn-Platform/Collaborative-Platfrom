@@ -81,7 +81,11 @@ function Dashboard() {
                 </h2>
                 {projectsJoined?.length > 0 ? (
                   projectsJoined.map((project, index) => (
-                    <Project project={project} key={index} />
+                    <Project
+                      project={project}
+                      key={index}
+                      pageType="dashboard"
+                    />
                   ))
                 ) : (
                   <p className="text-gray-500">No projects joined</p>
@@ -96,7 +100,11 @@ function Dashboard() {
                 </h2>
                 {projectsOwned?.length > 0 ? (
                   projectsOwned.map((project, index) => (
-                    <Project project={project} key={index} />
+                    <Project
+                      project={project}
+                      key={index}
+                      pageType="dashboard"
+                    />
                   ))
                 ) : (
                   <p className="text-gray-500">No projects owned</p>
@@ -111,7 +119,7 @@ function Dashboard() {
                 </h2>
                 {roomsJoined?.length > 0 ? (
                   roomsJoined.map((room, index) => (
-                    <Room room={room} key={index} />
+                    <Room room={room} key={index} pageType="dashboard" />
                   ))
                 ) : (
                   <p className="text-gray-500">No rooms joined</p>
@@ -126,7 +134,7 @@ function Dashboard() {
                 </h2>
                 {roomsOwned?.length > 0 ? (
                   roomsOwned.map((room, index) => (
-                    <Room room={room} key={index} />
+                    <Room room={room} key={index} pageType="dashboard" />
                   ))
                 ) : (
                   <p className="text-gray-500">No rooms owned</p>

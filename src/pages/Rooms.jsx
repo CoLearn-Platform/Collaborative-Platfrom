@@ -78,7 +78,9 @@ function Rooms() {
       {/* Projects List */}
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredRooms?.length > 0 ? (
-          filteredRooms?.map((room) => <Room key={room.id} room={room} />)
+          filteredRooms?.map((room) => (
+            <Room key={room.id} room={room} pageType="rooms" />
+          ))
         ) : (
           <p className="text-center col-span-3 text-gray-500">
             No rooms found.

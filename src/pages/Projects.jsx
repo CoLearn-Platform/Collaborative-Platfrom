@@ -75,7 +75,7 @@ const Projects = () => {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProjects?.length > 0 ? (
           filteredProjects?.map((project) => (
-            <Project key={project.id} project={project} />
+            <Project key={project.id} project={project} pageType="projects" />
           ))
         ) : (
           <p className="text-center col-span-3 text-gray-500">

@@ -6,7 +6,7 @@ import { JoinRoom, leaveRoom } from "../../services/apiUser";
 import toast from "react-hot-toast";
 import Button from "../../ui/Button";
 
-function Room({ room }) {
+function Room({ room, pageType }) {
   const userId = 1;
   const navigate = useNavigate();
   const { id, title, description, created_at, place, visibility } = room;
@@ -68,9 +68,18 @@ function Room({ room }) {
             <strong>Location:</strong> {place}
           </div>
           <div>
-            <Button onClick={handleDetails}>details</Button>
-            <Button onClick={handleJoinRoom}>join</Button>
-            <Button onClick={handleLeaveRoom}>leave</Button>
+            {(pageType === "projects" || pageType === "rooms") && (
+              <>
+                <Button onClick={handleDetails}>details</Button>
+                <Button onClick={handleJoinRoom}>join</Button>
+              </>
+            )}
+            {pageType === "dashboard" && (
+              <>
+                <Button onClick={handleDetails}>details</Button>
+                <Button onClick={handleLeaveRoom}>Leave</Button>
+              </>
+            )}
           </div>
         </div>
       </div>
