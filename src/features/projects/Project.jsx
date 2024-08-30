@@ -8,6 +8,7 @@ import Button from "../../ui/Button";
 import { FaTrashAlt } from "react-icons/fa";
 
 function Project({ project, pageType, projectOwned = false }) {
+  //TODO get userId from auth context
   const userId = 1;
   const navigate = useNavigate();
   const {

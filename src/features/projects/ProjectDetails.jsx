@@ -9,6 +9,7 @@ import Loader from "../../ui/Loader";
 import Button from "../../ui/Button";
 
 function ProjectDetails() {
+  //TODO get userId from auth context
   const userId = 1; // Mocked userId for now
   const { projectId } = useParams();
   const navigate = useNavigate();

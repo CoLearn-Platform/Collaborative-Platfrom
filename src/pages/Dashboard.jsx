@@ -14,6 +14,7 @@ import UserCard from "../features/user/UserCard";
 import Loader from "../ui/Loader";
 
 function Dashboard() {
+  //TODO get userId from auth context
   const userId = 1;
   const [showForm, setShowForm] = useState("dashboard");
 

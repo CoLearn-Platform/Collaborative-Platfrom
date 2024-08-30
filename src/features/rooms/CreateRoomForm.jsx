@@ -10,6 +10,7 @@ function CreateRoomForm({ setShowForm }) {
     reset,
     formState: { errors },
   } = useForm();
+  //TODO get userId from auth context
   const userId = 1;
 
   const { createRoom, isCreating } = useCreateRoom();

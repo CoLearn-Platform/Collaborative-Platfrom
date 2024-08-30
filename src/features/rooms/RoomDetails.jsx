@@ -10,6 +10,7 @@ import { formatDate } from "../../utils/helper";
 import { useGetUserDetail } from "../user/useGetUserDetail";
 
 function RoomDetails() {
+  //TODO get userId from auth context
   const userId = 1;
   const { roomId } = useParams();
   const navigate = useNavigate();
