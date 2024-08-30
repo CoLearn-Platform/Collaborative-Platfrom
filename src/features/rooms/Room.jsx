@@ -73,7 +73,11 @@ function Room({ room, pageType, roomOwned = false }) {
               <>
                 <Button onClick={handleDetails}>Details</Button>
                 <Button onClick={handleJoinRoom} disabled={!isUserLoggedIn}>
-                  {isJoining ? "Joining..." : "Join Room"}
+                  {!isUserLoggedIn
+                    ? "Login to Join"
+                    : isJoining
+                    ? "Joining..."
+                    : "Join"}
                 </Button>
               </>
             )}

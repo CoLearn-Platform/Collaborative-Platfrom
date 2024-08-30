@@ -140,7 +140,11 @@ function ProjectDetails() {
         <div className="mt-6 flex space-x-4">
           <Button onClick={handleNavigateBack}>Back</Button>
           <Button onClick={handleJoinProject} disabled={!isUserLoggedIn}>
-            {isJoining ? "Joining..." : "Join Project"}
+            {!isUserLoggedIn
+              ? "Login to Join"
+              : isJoining
+              ? "Joining..."
+              : "Join"}
           </Button>
         </div>
         <footer className="text-center mt-4 text-gray-600">
