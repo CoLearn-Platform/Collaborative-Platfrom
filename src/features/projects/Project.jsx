@@ -104,7 +104,11 @@ function Project({ project, pageType, projectOwned = false }) {
                 Details
               </Button>
               <Button onClick={handleJoinProject} disabled={!isUserLoggedIn}>
-                {isJoining ? "Joining..." : "Join"}
+                {!isUserLoggedIn
+                  ? "Login to Join"
+                  : isJoining
+                  ? "Joining..."
+                  : "Join"}
               </Button>
             </>
           )}

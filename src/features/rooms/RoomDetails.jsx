@@ -142,7 +142,11 @@ function RoomDetails() {
         <div className="mt-6 flex space-x-4">
           <Button onClick={handleNavigateBack}>Back</Button>
           <Button onClick={handleJoinRoom} disabled={!isUserLoggedIn}>
-            {isJoining ? "Joining..." : "Join Room"}
+            {!isUserLoggedIn
+              ? "Login to Join"
+              : isJoining
+              ? "Joining..."
+              : "Join"}
           </Button>
         </div>
         <footer className="text-center mt-4 text-gray-600">
