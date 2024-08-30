@@ -1,3 +1,5 @@
+import { formatDate } from "../../utils/helper";
+
 import Button from "../../ui/Button";
 
 function UserCard({ user, setShowForm }) {
@@ -25,7 +27,7 @@ function UserCard({ user, setShowForm }) {
           <h2 className="text-xl font-semibold">{name}</h2>
           <p className="text-gray-600">{email}</p>
           <p className="text-gray-500 text-sm">
-            Member since: {new Date(joinedAt).toLocaleDateString()}
+            Member since: {formatDate(joinedAt)}
           </p>
         </div>
       </div>

@@ -162,5 +162,4 @@ export async function deleteProject(projectId) {
     console.log("error in deleting project", error);
     throw new Error(error.message);
   }
-
 }
