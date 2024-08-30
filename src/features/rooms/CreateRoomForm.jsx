@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 
 import Button from "../../ui/Button";
 import { useCreateRoom } from "./useCreateRoom";
+import { useSelector } from "react-redux";
 
 function CreateRoomForm({ setShowForm }) {
   const {
@@ -11,12 +12,14 @@ function CreateRoomForm({ setShowForm }) {
     formState: { errors },
   } = useForm();
   //TODO get userId from auth context
-  const userId = 1;
+  const { user } = useSelector((state) => state?.user);
+  // console.log(user.id);
+  const userId = user.id;
 
   const { createRoom, isCreating } = useCreateRoom();
 
   function onSubmit(data) {
-    createRoom(data).then(() => {
+    createRoom(data)?.then(() => {
       reset(); // Reset form after successful submission
       setShowForm("dashboard");
     });

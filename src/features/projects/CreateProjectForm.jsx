@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useCreateProject } from "./useCreateProject";
 
 import Button from "../../ui/Button";
+import { useSelector } from "react-redux";
 
 function CreateProjectForm({ setShowForm }) {
   const {
@@ -12,12 +13,14 @@ function CreateProjectForm({ setShowForm }) {
     formState: { errors },
   } = useForm();
   //TODO get userId from auth context
-  const userId = 1;
+  const { user } = useSelector((state) => state?.user);
+  // console.log(user.id);
+  const userId = user?.id; 
 
   const { createProject, isCreating } = useCreateProject();
 
   function onSubmit(data) {
-    createProject(data).then(() => {
+    createProject(data)?.then(() => {
       reset(); // Reset form after successful submission
       setShowForm("dashboard");
     });

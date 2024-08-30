@@ -7,10 +7,14 @@ import { useGetUserDetail } from "../user/useGetUserDetail";
 import { useRequiredSkills } from "./useRequiredSkills";
 import Loader from "../../ui/Loader";
 import Button from "../../ui/Button";
+import { useSelector } from "react-redux";
 
 function ProjectDetails() {
   //TODO get userId from auth context
-  const userId = 1; // Mocked userId for now
+  const { user } = useSelector((state) => state.user);
+  // console.log(user.id);
+  const userId = user?.id;
+  const isUserLoggedIn = Boolean(userId);
   const { projectId } = useParams();
   const navigate = useNavigate();
 
@@ -135,7 +139,7 @@ function ProjectDetails() {
         {/* Actions */}
         <div className="mt-6 flex space-x-4">
           <Button onClick={handleNavigateBack}>Back</Button>
-          <Button onClick={handleJoinProject} disabled={isJoining}>
+          <Button onClick={handleJoinProject} disabled={!isUserLoggedIn}>
             {isJoining ? "Joining..." : "Join Project"}
           </Button>
         </div>

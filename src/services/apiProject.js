@@ -56,12 +56,10 @@ export async function getProjectMembers(id) {
   let membersName = await Promise.all(
     members.map(async (member) => {
       try {
-        // console.log(member);
-        const [user] = await getUserDetail(member.userId);
-
+        const [user] = await getUserDetail(member?.userId);
         const nameAndId = {
-          name: user.name,
-          id: user.id,
+          name: user?.name,
+          id: user?.id,
         };
         return nameAndId;
       } catch (e) {
@@ -78,6 +76,7 @@ export async function getProjectMembers(id) {
 
 // getting project owned by a user
 export async function getProjectOwned(userId) {
+  if (!userId) throw new Error("invalid user id");
   let { data: projects, error } = await supabase
     .from("projects")
     .select("*")
@@ -92,6 +91,7 @@ export async function getProjectOwned(userId) {
 
 // getting project joined by a user
 export async function getProjectJoined(userId) {
+  if (!userId) throw new Error("invalid user id");
   let { data, error } = await supabase
     .from("members")
     .select("projectId")

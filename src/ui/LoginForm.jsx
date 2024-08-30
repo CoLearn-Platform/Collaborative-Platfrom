@@ -1,24 +1,56 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Button from "./Button";
+import { useForm } from "react-hook-form";
+import { signIn } from "../services/apiAuth";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../features/user/userSlice";
+import { useNavigate } from "react-router";
 
 function LoginForm() {
+  const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const { mutate } = useMutation({
+    mutationFn: signIn,
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Login successful");
+      dispatch(setUser(data.user));
+      reset();
+      navigate("/");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error("Login failed");
+    },
+  });
+
+  function onSubmit(data) {
+    // console.log(data);
+    mutate(data);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4">
         <label className="block text-gray-700">Email</label>
         <input
           type="email"
+          {...register("email", { required: true })}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your email"
-          required
         />
       </div>
       <div className="mb-6">
         <label className="block text-gray-700">Password</label>
         <input
           type="password"
+          {...register("password", { required: true })}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your password"
-          required
         />
       </div>
       <Button type="submit">Login</Button>

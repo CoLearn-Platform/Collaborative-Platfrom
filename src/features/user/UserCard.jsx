@@ -5,7 +5,7 @@ import Button from "../../ui/Button";
 function UserCard({ user, setShowForm }) {
   // destructuring user object
   //   console.log(user)
-  const { name, email, avatar, created_at: joinedAt } = user;
+  const { name, email, avatar, created_at: joinedAt } = user || {};
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden mb-8">
       <div className="p-6 bg-blue-500 text-white text-center">

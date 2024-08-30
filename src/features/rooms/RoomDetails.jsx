@@ -8,10 +8,14 @@ import Button from "../../ui/Button";
 import { useJoinRoom } from "./useJoinRoom";
 import { formatDate } from "../../utils/helper";
 import { useGetUserDetail } from "../user/useGetUserDetail";
+import { useSelector } from "react-redux";
 
 function RoomDetails() {
   //TODO get userId from auth context
-  const userId = 1;
+  const { user } = useSelector((state) => state.user);
+  // console.log(user.id);
+  const userId = user?.id;
+  const isUserLoggedIn = Boolean(userId);
   const { roomId } = useParams();
   const navigate = useNavigate();
 
@@ -58,13 +62,13 @@ function RoomDetails() {
           <span className="font-semibold">Description:</span> {description}
         </p>
         <p className="text-gray-600 mb-4">
-          <span className="font-semibold">Project Summary:</span> {roomSummary}
+          <span className="font-semibold">Room Summary:</span> {roomSummary}
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
-          {/* Project Details */}
+          {/* Room Details */}
           <div>
-            <h3 className="text-xl font-semibold mb-2">Project Details:</h3>
+            <h3 className="text-xl font-semibold mb-2">Room Details:</h3>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created By: </span>
               <a href="" style={{ textDecoration: "underline" }}>
@@ -137,8 +141,8 @@ function RoomDetails() {
         {/* Actions */}
         <div className="mt-6 flex space-x-4">
           <Button onClick={handleNavigateBack}>Back</Button>
-          <Button onClick={handleJoinRoom} disabled={isJoining}>
-            {isJoining ? "Joining..." : "Join Project"}
+          <Button onClick={handleJoinRoom} disabled={!isUserLoggedIn}>
+            {isJoining ? "Joining..." : "Join Room"}
           </Button>
         </div>
         <footer className="text-center mt-4 text-gray-600">

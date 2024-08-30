@@ -6,10 +6,13 @@ import { useDeleteProject } from "./useDeleteProject";
 
 import Button from "../../ui/Button";
 import { FaTrashAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function Project({ project, pageType, projectOwned = false }) {
   //TODO get userId from auth context
-  const userId = 1;
+  const { user } = useSelector((state) => state.user);
+  const userId = user?.id;
+  const isUserLoggedIn = Boolean(userId);
   const navigate = useNavigate();
   const {
     id,
@@ -100,7 +103,7 @@ function Project({ project, pageType, projectOwned = false }) {
               <Button onClick={handleDetails} disabled={isJoining}>
                 Details
               </Button>
-              <Button onClick={handleJoinProject} disabled={isJoining}>
+              <Button onClick={handleJoinProject} disabled={!isUserLoggedIn}>
                 {isJoining ? "Joining..." : "Join"}
               </Button>
             </>
