@@ -60,6 +60,7 @@ export async function getRoomMembers(id) {
 
 // getting room owned by a user
 export async function getRoomOwned(id) {
+  if (!id) throw new Error("invalid user id");
   let { data: rooms, error } = await supabase
     .from("rooms")
     .select("*")
@@ -74,6 +75,7 @@ export async function getRoomOwned(id) {
 
 // getting room joined by a user
 export async function getRoomJoined(id) {
+  if (!id) throw new Error("invalid user id");
   let { data, error } = await supabase
     .from("members")
     .select("roomId")
@@ -132,4 +134,14 @@ export async function createNewRoom(data) {
   }
 
   return newRoom;
+}
+
+// deleting a room
+export async function deleteRoom(roomId) {
+  const { error } = await supabase.from("rooms").delete().eq("id", roomId);
+
+  if (error) {
+    console.log("error in deleting project", error);
+    throw new Error(error.message);
+  }
 }

@@ -12,9 +12,13 @@ import CreateProjectForm from "../features/projects/CreateProjectForm";
 import CreateRoomForm from "../features/rooms/CreateRoomForm";
 import UserCard from "../features/user/UserCard";
 import Loader from "../ui/Loader";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
-  const userId = 1;
+  //TODO get userId from auth context
+  const { user: reduxUser } = useSelector((state) => state?.user);
+  // console.log(user.id);
+  const userId = reduxUser?.id;
   const [showForm, setShowForm] = useState("dashboard");
 
   // Fetch user details
@@ -34,7 +38,7 @@ function Dashboard() {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-5xl mx-auto">
         {/* User Info Card */}
-        <UserCard user={user[0]} setShowForm={setShowForm} />
+        <UserCard user={user?.[0]} setShowForm={setShowForm} />
 
         {/* Add New Project Form */}
         {showForm === "newProjectForm" && (
@@ -81,6 +85,7 @@ function Dashboard() {
                       project={project}
                       key={project.id}
                       pageType="dashboard"
+                      projectOwned="true"
                     />
                   ))
                 ) : (
@@ -113,7 +118,12 @@ function Dashboard() {
                 </h2>
                 {roomsOwned?.length > 0 ? (
                   roomsOwned.map((room) => (
-                    <Room room={room} key={room.id} pageType="dashboard" />
+                    <Room
+                      room={room}
+                      key={room.id}
+                      pageType="dashboard"
+                      roomOwned="true"
+                    />
                   ))
                 ) : (
                   <p className="text-gray-500">No rooms owned</p>

@@ -2,6 +2,7 @@ import supabase from "./supabase";
 
 // user detail with given id
 export async function getUserDetail(id) {
+  if (!id) throw new Error("invalid user id");
   let { data: user, error } = await supabase
     .from("users")
     .select("*")
@@ -22,7 +23,7 @@ export async function joinProject(projectId, userId) {
     .insert([{ userId: userId, projectId: projectId, role: "member" }])
     .select();
 
-  console.log(data);
+  // console.log(data);
 
   if (error) {
     console.log("error in joining project", error);
@@ -48,7 +49,6 @@ export async function JoinRoom(roomId, userId) {
 
   return data;
 }
-
 
 // function to leave a project
 export async function leaveProject(projectId, userId) {

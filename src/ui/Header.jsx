@@ -1,14 +1,42 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "./Button";
+import { IoIosLogOut } from "react-icons/io";
+import { useMutation } from "@tanstack/react-query";
+import { logout } from "../services/apiAuth";
+import toast from "react-hot-toast";
+import { removeUser } from "../features/user/userSlice";
 
 function Header() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state);
+  const isAuthenticated = user?.isAuthenticated;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   function toggleMenu() {
     setIsMenuOpen((prevState) => !prevState);
+  }
+
+  const { mutate: mutateLogout, isLoading: isLoggingOut } = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      console.log("logout success");
+      toast.success("Logged out successfully");
+      dispatch(removeUser());
+    },
+    onError: (error) => {
+      console.log("error in logout", error);
+      toast.error("Error in logging out");
+    },
+  });
+
+  function handleLogout() {
+    mutateLogout();
+    navigate("/");
   }
 
   return (
@@ -96,13 +124,22 @@ function Header() {
                   About Us
                 </Link>
                 {isAuthenticated ? (
-                  <Link
-                    to="/dashboard"
-                    className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
-                    onClick={toggleMenu}
-                  >
-                    Dashboard
-                  </Link>
+                  <>
+                    <Link
+                      to="/dashboard"
+                      className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                      onClick={toggleMenu}
+                    >
+                      Dashboard
+                    </Link>
+                    <Button
+                      styleType="remove"
+                      onClick={handleLogout}
+                      disabled={isLoggingOut}
+                    >
+                      <IoIosLogOut />
+                    </Button>
+                  </>
                 ) : (
                   <Link
                     to="/auth"
@@ -119,9 +156,18 @@ function Header() {
           {/* Action Button */}
           <div className="hidden md:flex">
             {isAuthenticated ? (
-              <Link to="/dashboard">
-                <Button>Dashboard</Button>
-              </Link>
+              <>
+                <Link to="/dashboard">
+                  <Button>Dashboard</Button>
+                </Link>
+                <Button
+                  styleType="remove"
+                  onClick={handleLogout}
+                  disabled={isLoggingOut}
+                >
+                  <IoIosLogOut />
+                </Button>
+              </>
             ) : (
               <Link to="/auth">
                 <Button styleType="login">Login</Button>

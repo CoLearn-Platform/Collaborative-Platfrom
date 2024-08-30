@@ -2,17 +2,26 @@ import { useNavigate } from "react-router";
 
 import { useJoinRoom } from "./useJoinRoom";
 import { useLeaveRoom } from "./useLeaveRoom";
+import { useDeleteRoom } from "./useDeleteRoom";
 
 import Button from "../../ui/Button";
+import { FaTrashAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
-function Room({ room, pageType }) {
-  const userId = 1;
+function Room({ room, pageType, roomOwned = false }) {
+  //TODO get userId from auth context
+  const { user } = useSelector((state) => state.user);
+  // console.log(user.id);
+  const userId = user?.id;
+  const isUserLoggedIn = Boolean(userId);
   const navigate = useNavigate();
   const { id, title, description, created_at, place, visibility } = room;
 
   const { mutateJoinRoom, isJoining } = useJoinRoom();
 
   const { mutateLeaveRoom, isLeaving } = useLeaveRoom();
+
+  const { mutateDelete, isDeleting } = useDeleteRoom();
 
   function handleJoinRoom() {
     mutateJoinRoom({ id, userId });
@@ -26,6 +35,11 @@ function Room({ room, pageType }) {
   function handleLeaveRoom() {
     mutateLeaveRoom({ id, userId });
     // console.log("leave room");
+  }
+
+  function handleDeleteRoom() {
+    // console.log("delete room");
+    mutateDelete(id);
   }
 
   return (
@@ -58,13 +72,24 @@ function Room({ room, pageType }) {
             {(pageType === "projects" || pageType === "rooms") && (
               <>
                 <Button onClick={handleDetails}>Details</Button>
-                <Button onClick={handleJoinRoom}>Join</Button>
+                <Button onClick={handleJoinRoom} disabled={!isUserLoggedIn}>
+                  {isJoining ? "Joining..." : "Join Room"}
+                </Button>
               </>
             )}
             {pageType === "dashboard" && (
               <>
                 <Button onClick={handleDetails}>Details</Button>
                 <Button onClick={handleLeaveRoom}>Leave</Button>
+                {roomOwned && (
+                  <Button
+                    styleType="remove"
+                    onClick={handleDeleteRoom}
+                    disabled={isDeleting}
+                  >
+                    <FaTrashAlt />
+                  </Button>
+                )}
               </>
             )}
           </div>

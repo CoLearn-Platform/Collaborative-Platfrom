@@ -2,10 +2,17 @@ import { useNavigate } from "react-router";
 
 import { useJoinProject } from "./useJoinProject";
 import { useLeaveProject } from "./useLeaveProject";
-import Button from "../../ui/Button";
+import { useDeleteProject } from "./useDeleteProject";
 
-function Project({ project, pageType }) {
-  const userId = 1;
+import Button from "../../ui/Button";
+import { FaTrashAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
+
+function Project({ project, pageType, projectOwned = false }) {
+  //TODO get userId from auth context
+  const { user } = useSelector((state) => state.user);
+  const userId = user?.id;
+  const isUserLoggedIn = Boolean(userId);
   const navigate = useNavigate();
   const {
     id,
@@ -22,6 +29,7 @@ function Project({ project, pageType }) {
 
   const { mutateLeave, isLeaving } = useLeaveProject();
 
+  const { mutateDelete, isDeleting } = useDeleteProject();
   function handleJoinProject() {
     mutateJoinProject({ id, userId });
     // console.log(id, userId);
@@ -30,6 +38,11 @@ function Project({ project, pageType }) {
   function handleLeaveProject() {
     // console.log("leave project");
     mutateLeave({ id, userId });
+  }
+
+  function handleDeleteProject() {
+    // console.log("delete project");
+    mutateDelete(id);
   }
 
   function handleDetails() {
@@ -90,7 +103,7 @@ function Project({ project, pageType }) {
               <Button onClick={handleDetails} disabled={isJoining}>
                 Details
               </Button>
-              <Button onClick={handleJoinProject} disabled={isJoining}>
+              <Button onClick={handleJoinProject} disabled={!isUserLoggedIn}>
                 {isJoining ? "Joining..." : "Join"}
               </Button>
             </>
@@ -100,9 +113,22 @@ function Project({ project, pageType }) {
               <Button onClick={handleDetails} disabled={isLeaving}>
                 Details
               </Button>
-              <Button onClick={handleLeaveProject} disabled={isLeaving}>
+              <Button
+                onClick={handleLeaveProject}
+                disabled={isLeaving}
+                styleType="leave"
+              >
                 {isLeaving ? "Leaving..." : "Leave"}
               </Button>
+              {projectOwned && (
+                <Button
+                  styleType="remove"
+                  onClick={handleDeleteProject}
+                  disabled={isDeleting}
+                >
+                  <FaTrashAlt />
+                </Button>
+              )}
             </>
           )}
         </div>
