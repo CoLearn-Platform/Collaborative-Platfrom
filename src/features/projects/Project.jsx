@@ -2,9 +2,12 @@ import { useNavigate } from "react-router";
 
 import { useJoinProject } from "./useJoinProject";
 import { useLeaveProject } from "./useLeaveProject";
-import Button from "../../ui/Button";
+import { useDeleteProject } from "./useDeleteProject";
 
-function Project({ project, pageType }) {
+import Button from "../../ui/Button";
+import { FaTrashAlt } from "react-icons/fa";
+
+function Project({ project, pageType, projectOwned = false }) {
   const userId = 1;
   const navigate = useNavigate();
   const {
@@ -22,6 +25,7 @@ function Project({ project, pageType }) {
 
   const { mutateLeave, isLeaving } = useLeaveProject();
 
+  const { mutateDelete, isDeleting } = useDeleteProject();
   function handleJoinProject() {
     mutateJoinProject({ id, userId });
     // console.log(id, userId);
@@ -30,6 +34,11 @@ function Project({ project, pageType }) {
   function handleLeaveProject() {
     // console.log("leave project");
     mutateLeave({ id, userId });
+  }
+
+  function handleDeleteProject() {
+    // console.log("delete project");
+    mutateDelete(id);
   }
 
   function handleDetails() {
@@ -100,9 +109,22 @@ function Project({ project, pageType }) {
               <Button onClick={handleDetails} disabled={isLeaving}>
                 Details
               </Button>
-              <Button onClick={handleLeaveProject} disabled={isLeaving}>
+              <Button
+                onClick={handleLeaveProject}
+                disabled={isLeaving}
+                styleType="leave"
+              >
                 {isLeaving ? "Leaving..." : "Leave"}
               </Button>
+              {projectOwned && (
+                <Button
+                  styleType="remove"
+                  onClick={handleDeleteProject}
+                  disabled={isDeleting}
+                >
+                  <FaTrashAlt />
+                </Button>
+              )}
             </>
           )}
         </div>

@@ -81,6 +81,7 @@ function Dashboard() {
                       project={project}
                       key={project.id}
                       pageType="dashboard"
+                      projectOwned="true"
                     />
                   ))
                 ) : (
@@ -113,7 +114,12 @@ function Dashboard() {
                 </h2>
                 {roomsOwned?.length > 0 ? (
                   roomsOwned.map((room) => (
-                    <Room room={room} key={room.id} pageType="dashboard" />
+                    <Room
+                      room={room}
+                      key={room.id}
+                      pageType="dashboard"
+                      roomOwned="true"
+                    />
                   ))
                 ) : (
                   <p className="text-gray-500">No rooms owned</p>

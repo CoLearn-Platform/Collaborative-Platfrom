@@ -2,10 +2,12 @@ import { useNavigate } from "react-router";
 
 import { useJoinRoom } from "./useJoinRoom";
 import { useLeaveRoom } from "./useLeaveRoom";
+import { useDeleteRoom } from "./useDeleteRoom";
 
 import Button from "../../ui/Button";
+import { FaTrashAlt } from "react-icons/fa";
 
-function Room({ room, pageType }) {
+function Room({ room, pageType, roomOwned = false }) {
   const userId = 1;
   const navigate = useNavigate();
   const { id, title, description, created_at, place, visibility } = room;
@@ -13,6 +15,8 @@ function Room({ room, pageType }) {
   const { mutateJoinRoom, isJoining } = useJoinRoom();
 
   const { mutateLeaveRoom, isLeaving } = useLeaveRoom();
+
+  const { mutateDelete, isDeleting } = useDeleteRoom();
 
   function handleJoinRoom() {
     mutateJoinRoom({ id, userId });
@@ -26,6 +30,11 @@ function Room({ room, pageType }) {
   function handleLeaveRoom() {
     mutateLeaveRoom({ id, userId });
     // console.log("leave room");
+  }
+
+  function handleDeleteRoom() {
+    // console.log("delete room");
+    mutateDelete(id);
   }
 
   return (
@@ -65,6 +74,15 @@ function Room({ room, pageType }) {
               <>
                 <Button onClick={handleDetails}>Details</Button>
                 <Button onClick={handleLeaveRoom}>Leave</Button>
+                {roomOwned && (
+                  <Button
+                    styleType="remove"
+                    onClick={handleDeleteRoom}
+                    disabled={isDeleting}
+                  >
+                    <FaTrashAlt />
+                  </Button>
+                )}
               </>
             )}
           </div>
