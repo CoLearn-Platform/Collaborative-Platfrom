@@ -11,7 +11,7 @@ function RegisterForm() {
     mutationFn: signup,
     onSuccess: (data) => {
       console.log(data);
-      toast.success("Registration successful");
+      toast.success("email verification link sent to your email");
     },
     onError: (error) => {
       console.log(error);
