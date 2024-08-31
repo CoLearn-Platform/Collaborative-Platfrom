@@ -44,7 +44,7 @@ function Room({ room, pageType, roomOwned = false }) {
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-4">
-      <div className="px-6 py-4">
+      <div className="px-2 py-2">
         {/* Room Title */}
         <h2 className="text-xl font-bold text-blue-500 mb-2">{title}</h2>
         {/* Room Visibility */}
@@ -68,7 +68,7 @@ function Room({ room, pageType, roomOwned = false }) {
           <div className="text-gray-600">
             <strong>Location:</strong> {place}
           </div>
-          <div className="flex space-x-2 mt-4">
+          <div className="flex space-x-1 mt-3">
             {(pageType === "projects" || pageType === "rooms") && (
               <>
                 <Button onClick={handleDetails}>Details</Button>
@@ -84,7 +84,9 @@ function Room({ room, pageType, roomOwned = false }) {
             {pageType === "dashboard" && (
               <>
                 <Button onClick={handleDetails}>Details</Button>
-                <Button onClick={handleLeaveRoom}>Leave</Button>
+                <Button onClick={handleLeaveRoom} styleType="leave">
+                  Leave
+                </Button>
                 {roomOwned && (
                   <Button
                     styleType="remove"

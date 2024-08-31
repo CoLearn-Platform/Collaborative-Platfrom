@@ -5,13 +5,14 @@ import { signup } from "../services/apiAuth";
 import toast from "react-hot-toast";
 
 function RegisterForm() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const { mutate } = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
       console.log(data);
       toast.success("email verification link sent to your email");
+      reset();
     },
     onError: (error) => {
       console.log(error);
