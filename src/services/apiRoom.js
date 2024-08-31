@@ -40,12 +40,12 @@ export async function getRoomMembers(id) {
   }
 
   let membersName = await Promise.all(
-    members.map(async (member) => {
+    members?.map(async (member) => {
       try {
-        const [name] = await getUserDetail(member.userId);
+        const [name] = await getUserDetail(member?.userId);
         const nameAndId = {
-          name: name.name,
-          id: name.id,
+          name: name?.name,
+          id: name?.id,
         };
         return name;
       } catch (e) {

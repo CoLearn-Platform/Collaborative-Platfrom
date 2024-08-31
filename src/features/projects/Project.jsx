@@ -51,7 +51,7 @@ function Project({ project, pageType, projectOwned = false }) {
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-4">
-      <div className="px-6 py-4">
+      <div className="px-2 py-2">
         {/* Project Title */}
         <h2 className="text-xl font-bold text-blue-500 mb-2">{title}</h2>
 
@@ -97,7 +97,7 @@ function Project({ project, pageType, projectOwned = false }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-4 flex space-x-4">
+        <div className="mt-3 flex space-x-1">
           {pageType === "projects" && (
             <>
               <Button onClick={handleDetails} disabled={isJoining}>

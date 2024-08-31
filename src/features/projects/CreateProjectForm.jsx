@@ -15,11 +15,12 @@ function CreateProjectForm({ setShowForm }) {
   //TODO get userId from auth context
   const { user } = useSelector((state) => state?.user);
   // console.log(user.id);
-  const userId = user?.id; 
+  const userId = user?.id;
 
   const { createProject, isCreating } = useCreateProject();
 
   function onSubmit(data) {
+    console.log(data);
     createProject(data)?.then(() => {
       reset(); // Reset form after successful submission
       setShowForm("dashboard");
@@ -64,6 +65,22 @@ function CreateProjectForm({ setShowForm }) {
           />
           {errors.description && (
             <p className="text-red-500 text-sm">{errors.description.message}</p>
+          )}
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Project Summary</label>
+          <textarea
+            {...register("projectSummary", {
+              required: "Project summary is required",
+            })}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter project summary"
+            rows="3"
+          />
+          {errors.projectSummary && (
+            <p className="text-red-500 text-sm">
+              {errors.projectSummary.message}
+            </p>
           )}
         </div>
 
