@@ -52,9 +52,8 @@ export async function getProjectMembers(id) {
     console.log("error in getting project members", error);
     throw new Error(error.message);
   }
-
   let membersName = await Promise.all(
-    members.map(async (member) => {
+    members?.map(async (member) => {
       try {
         const [user] = await getUserDetail(member?.userId);
         const nameAndId = {
