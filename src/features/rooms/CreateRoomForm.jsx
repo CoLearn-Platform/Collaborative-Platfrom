@@ -64,6 +64,20 @@ function CreateRoomForm({ setShowForm }) {
             <p className="text-red-500 text-sm">{errors.description.message}</p>
           )}
         </div>
+        <div className="mb-4">
+          <label className="block text-gray-700">Room Summary</label>
+          <textarea
+            {...register("roomSummary", {
+              required: "Room Summary is required",
+            })}
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter room summary....."
+            rows="3"
+          />
+          {errors.roomSummary && (
+            <p className="text-red-500 text-sm">{errors.description.message}</p>
+          )}
+        </div>
 
         {/* Room Visibility */}
         <div className="mb-4 flex items-center">
