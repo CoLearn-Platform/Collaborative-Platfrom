@@ -13,7 +13,25 @@ function Footer() {
             </p>
           </div>
           {/* Quick Links */}
-          <nav className="space-y-4 md:space-y-0 md:space-x-6 text-center">
+          <nav className="space-y-4 md:space-y-0 md:space-x-6 text-center flex flex-col">
+            <Link
+              to="/contact"
+              className="text-gray-400 hover:text-white block md:inline-block"
+            >
+              Contact Us
+            </Link>
+            <Link
+              to="/report"
+              className="text-gray-400 hover:text-white block md:inline-block"
+            >
+              Report an Issue
+            </Link>
+            <Link
+              to="/feedback"
+              className="text-gray-400 hover:text-white block md:inline-block"
+            >
+              Give suggestions
+            </Link>
             <Link
               to="/privacy"
               className="text-gray-400 hover:text-white block md:inline-block"
@@ -25,12 +43,6 @@ function Footer() {
               className="text-gray-400 hover:text-white block md:inline-block"
             >
               Terms of Service
-            </Link>
-            <Link
-              to="/contact"
-              className="text-gray-400 hover:text-white block md:inline-block"
-            >
-              Contact Us
             </Link>
           </nav>
         </div>

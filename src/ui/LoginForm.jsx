@@ -16,7 +16,6 @@ function LoginForm() {
   const { mutate } = useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
-      console.log(data);
       toast.success("Login successful");
       dispatch(setUser(data.user));
       reset();

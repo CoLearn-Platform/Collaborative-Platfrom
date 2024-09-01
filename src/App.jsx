@@ -13,6 +13,8 @@ import PageNotFound from "./ui/PageNotFound";
 import AuthForm from "./pages/AuthForm";
 import ProjectDetails from "./features/projects/ProjectDetails";
 import RoomDetails from "./features/rooms/RoomDetails";
+import Feedback from "./pages/Feedback";
+import ReportIssue from "./pages/ReportIssue";
 
 // creating react query client
 const queryClient = new QueryClient({
@@ -38,6 +40,8 @@ function App() {
               <Route path="about" element={<About />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="auth" element={<AuthForm />} />
+              <Route path="feedback" element={<Feedback />} />
+              <Route path="report" element={<ReportIssue />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>
