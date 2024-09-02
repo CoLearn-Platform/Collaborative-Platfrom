@@ -6,10 +6,10 @@ export function useAddIssue() {
   const { mutate: mutateIssue, isLoading } = useMutation({
     mutationFn: addIssue,
     onSuccess: () => {
-      toast.success("Feedback submitted successfully");
+      toast.success("Issue reported successfully");
     },
     onError: (error) => {
-      toast.error("Failed to submit feedback");
+      toast.error("Failed to report Issue");
     },
   });
   return { mutateIssue, isLoading };
