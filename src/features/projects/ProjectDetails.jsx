@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { useProjectDetail } from "./useProjectDetail";
 import { useProjectMembers } from "./useProjectMembers";
 import { useJoinProject } from "./useJoinProject";
@@ -35,7 +36,7 @@ function ProjectDetails() {
 
   const { projectMembers } = useProjectMembers(projectId);
   const { user: owner } = useGetUserDetail(created_by);
-  const { name: ownerName, email: ownerEmail } = owner?.[0] || {};
+  const { name: ownerName, email: ownerEmail, id: ownerId } = owner?.[0] || {};
 
   const { skills } = useRequiredSkills(projectId);
 
@@ -67,9 +68,9 @@ function ProjectDetails() {
             <h3 className="text-xl font-semibold mb-2">Project Details:</h3>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created By: </span>
-              <a href="" style={{ textDecoration: "underline" }}>
+              <Link to={`/user/${ownerId}`} className="underline">
                 {ownerName}
-              </a>
+              </Link>
             </p>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created At:</span>{" "}
@@ -127,10 +128,11 @@ function ProjectDetails() {
           <h3 className="text-xl font-semibold mb-2">Members:</h3>
           <ul className="list-disc list-inside text-gray-700">
             {projectMembers?.map((member) => (
+              // console.log(member.id)
               <li key={member.id} className="text-gray-700">
-                <a href="#" className="underline">
-                  {member.name}
-                </a>
+                <Link to={`/user/${member?.id}`} className="underline">
+                  {member?.name}
+                </Link>
               </li>
             ))}
           </ul>

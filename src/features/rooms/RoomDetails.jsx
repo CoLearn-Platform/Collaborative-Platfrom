@@ -9,6 +9,7 @@ import { useJoinRoom } from "./useJoinRoom";
 import { formatDate } from "../../utils/helper";
 import { useGetUserDetail } from "../user/useGetUserDetail";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function RoomDetails() {
   //TODO get userId from auth context
@@ -38,7 +39,7 @@ function RoomDetails() {
   } = details[0];
 
   const { user: owner } = useGetUserDetail(createdBy);
-  const { name: ownerName, email: ownerEmail } = owner?.[0] || {};
+  const { name: ownerName, email: ownerEmail, id: ownerId } = owner?.[0] || {};
 
   //fetching room members
   const { roomMembers } = useRoomMembers(roomId);
@@ -71,9 +72,9 @@ function RoomDetails() {
             <h3 className="text-xl font-semibold mb-2">Room Details:</h3>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created By: </span>
-              <a href="" style={{ textDecoration: "underline" }}>
+              <Link to={`/user/${ownerId}`} className="underline">
                 {ownerName}
-              </a>
+              </Link>
             </p>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created At:</span>{" "}
@@ -130,9 +131,9 @@ function RoomDetails() {
           <ul className="list-disc list-inside text-gray-700">
             {roomMembers?.map((member) => (
               <li key={member.id} className="text-gray-700">
-                <a href="#" className="underline">
-                  {member.name}
-                </a>
+                <Link to={`/user/${member?.id}`} className="underline">
+                  {member?.name}
+                </Link>
               </li>
             ))}
           </ul>
