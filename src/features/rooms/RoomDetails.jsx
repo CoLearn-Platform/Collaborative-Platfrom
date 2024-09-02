@@ -39,7 +39,7 @@ function RoomDetails() {
   } = details[0];
 
   const { user: owner } = useGetUserDetail(createdBy);
-  const { name: ownerName, email: ownerEmail } = owner?.[0] || {};
+  const { name: ownerName, email: ownerEmail, id: ownerId } = owner?.[0] || {};
 
   //fetching room members
   const { roomMembers } = useRoomMembers(roomId);
@@ -72,9 +72,9 @@ function RoomDetails() {
             <h3 className="text-xl font-semibold mb-2">Room Details:</h3>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created By: </span>
-              <a href="" style={{ textDecoration: "underline" }}>
+              <Link to={`/user/${ownerId}`} className="underline">
                 {ownerName}
-              </a>
+              </Link>
             </p>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created At:</span>{" "}

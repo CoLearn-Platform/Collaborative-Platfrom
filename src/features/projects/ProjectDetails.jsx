@@ -36,7 +36,7 @@ function ProjectDetails() {
 
   const { projectMembers } = useProjectMembers(projectId);
   const { user: owner } = useGetUserDetail(created_by);
-  const { name: ownerName, email: ownerEmail } = owner?.[0] || {};
+  const { name: ownerName, email: ownerEmail, id: ownerId } = owner?.[0] || {};
 
   const { skills } = useRequiredSkills(projectId);
 
@@ -68,9 +68,9 @@ function ProjectDetails() {
             <h3 className="text-xl font-semibold mb-2">Project Details:</h3>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created By: </span>
-              <a href="" style={{ textDecoration: "underline" }}>
+              <Link to={`/user/${ownerId}`} className="underline">
                 {ownerName}
-              </a>
+              </Link>
             </p>
             <p className="text-gray-700 mb-2">
               <span className="font-semibold">Created At:</span>{" "}
