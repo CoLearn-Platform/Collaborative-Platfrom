@@ -9,6 +9,7 @@ import { useJoinRoom } from "./useJoinRoom";
 import { formatDate } from "../../utils/helper";
 import { useGetUserDetail } from "../user/useGetUserDetail";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function RoomDetails() {
   //TODO get userId from auth context
@@ -130,9 +131,9 @@ function RoomDetails() {
           <ul className="list-disc list-inside text-gray-700">
             {roomMembers?.map((member) => (
               <li key={member.id} className="text-gray-700">
-                <a href="#" className="underline">
-                  {member.name}
-                </a>
+                <Link to={`/user/${member?.id}`} className="underline">
+                  {member?.name}
+                </Link>
               </li>
             ))}
           </ul>

@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router";
+import { Link } from "react-router-dom";
 import { useProjectDetail } from "./useProjectDetail";
 import { useProjectMembers } from "./useProjectMembers";
 import { useJoinProject } from "./useJoinProject";
@@ -127,10 +128,11 @@ function ProjectDetails() {
           <h3 className="text-xl font-semibold mb-2">Members:</h3>
           <ul className="list-disc list-inside text-gray-700">
             {projectMembers?.map((member) => (
+              // console.log(member.id)
               <li key={member.id} className="text-gray-700">
-                <a href="#" className="underline">
-                  {member.name}
-                </a>
+                <Link to={`/user/${member?.id}`} className="underline">
+                  {member?.name}
+                </Link>
               </li>
             ))}
           </ul>

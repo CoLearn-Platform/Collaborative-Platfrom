@@ -15,6 +15,7 @@ import ProjectDetails from "./features/projects/ProjectDetails";
 import RoomDetails from "./features/rooms/RoomDetails";
 import Feedback from "./pages/Feedback";
 import ReportIssue from "./pages/ReportIssue";
+import UserProfile from "./features/user/UserProfile";
 
 // creating react query client
 const queryClient = new QueryClient({
@@ -37,6 +38,7 @@ function App() {
               <Route path="projects/:projectId" element={<ProjectDetails />} />
               <Route path="rooms" element={<Rooms />} />
               <Route path="rooms/:roomId" element={<RoomDetails />} />
+              <Route path="/user/:userId" element={<UserProfile />} />
               <Route path="about" element={<About />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="auth" element={<AuthForm />} />
