@@ -32,7 +32,7 @@ function ProjectDetails() {
     created_at,
     status,
     projectSummary,
-  } = details[0];
+  } = details?.[0] || {};
 
   const { projectMembers } = useProjectMembers(projectId);
   const { user: owner } = useGetUserDetail(created_by);

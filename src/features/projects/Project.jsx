@@ -5,8 +5,10 @@ import { useLeaveProject } from "./useLeaveProject";
 import { useDeleteProject } from "./useDeleteProject";
 
 import Button from "../../ui/Button";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import Modal from "../../ui/Modal";
+import EditProjectForm from "./EditProjectForm";
 
 function Project({ project, pageType, projectOwned = false }) {
   //TODO get userId from auth context
@@ -125,13 +127,25 @@ function Project({ project, pageType, projectOwned = false }) {
                 {isLeaving ? "Leaving..." : "Leave"}
               </Button>
               {projectOwned && (
-                <Button
-                  styleType="remove"
-                  onClick={handleDeleteProject}
-                  disabled={isDeleting}
-                >
-                  <FaTrashAlt />
-                </Button>
+                <>
+                  <Button
+                    styleType="remove"
+                    onClick={handleDeleteProject}
+                    disabled={isDeleting}
+                  >
+                    <FaTrashAlt />
+                  </Button>
+                  <Modal>
+                    <Modal.Open opens="edit-project">
+                      <Button>
+                        <FaPencilAlt />
+                      </Button>
+                    </Modal.Open>
+                    <Modal.Window name="edit-project">
+                      <EditProjectForm project={project} />
+                    </Modal.Window>
+                  </Modal>
+                </>
               )}
             </>
           )}
