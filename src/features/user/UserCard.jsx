@@ -1,6 +1,8 @@
 import { formatDate } from "../../utils/helper";
 
 import Button from "../../ui/Button";
+import Modal from "../../ui/Modal";
+import EditUserDetails from "./EditUserDetails";
 
 function UserCard({ user, setShowForm }) {
   // destructuring user object
@@ -36,7 +38,16 @@ function UserCard({ user, setShowForm }) {
           Add New Project
         </Button>
         <Button onClick={() => setShowForm("newRoomForm")}>Add New Room</Button>
-        <Button onClick={() => setShowForm("editProfile")}>Edit Profile</Button>
+        <Modal>
+          <Modal.Open>
+            <Button onClick={() => setShowForm("editProfile")}>
+              Edit Profile
+            </Button>
+          </Modal.Open>
+          <Modal.Window>
+            <EditUserDetails />
+          </Modal.Window>
+        </Modal>
       </div>
     </div>
   );
