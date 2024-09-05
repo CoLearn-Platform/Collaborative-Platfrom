@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 import { useGetUserDetail } from "../features/user/useGetUserDetail";
 import { useProjectOwned } from "../features/projects/useProjectsOwned";
@@ -12,12 +14,11 @@ import CreateProjectForm from "../features/projects/CreateProjectForm";
 import CreateRoomForm from "../features/rooms/CreateRoomForm";
 import UserCard from "../features/user/UserCard";
 import Loader from "../ui/Loader";
-import { useSelector } from "react-redux";
 
 function Dashboard() {
+  const Navigate = useNavigate();
   //TODO get userId from auth context
   const { user: reduxUser } = useSelector((state) => state?.user);
-  // console.log(user.id);
   const userId = reduxUser?.id;
   const [showForm, setShowForm] = useState("dashboard");
 
@@ -33,6 +34,7 @@ function Dashboard() {
   const { roomsJoined } = useRoomsJoined(userId);
 
   if (isLoading) return <Loader />;
+  if (!userId) Navigate("/auth");
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
