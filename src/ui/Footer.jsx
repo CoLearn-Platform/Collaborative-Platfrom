@@ -11,6 +11,10 @@ function Footer() {
             <p className="text-gray-400 mt-2">
               Empowering collaboration and learning for students everywhere.
             </p>
+            <div>
+              <Link to="/joinUs">Join Us </Link>
+              <Link to="/support">Support Us </Link>
+            </div>
           </div>
           {/* Quick Links */}
           <nav className="space-y-4 md:space-y-0 md:space-x-6 text-center flex flex-col">
