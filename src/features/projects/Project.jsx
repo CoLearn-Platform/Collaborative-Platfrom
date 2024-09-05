@@ -9,6 +9,7 @@ import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Modal from "../../ui/Modal";
 import EditProjectForm from "./EditProjectForm";
+import { formatDate } from "../../utils/helper";
 
 function Project({ project, pageType, projectOwned = false }) {
   //TODO get userId from auth context
@@ -25,6 +26,8 @@ function Project({ project, pageType, projectOwned = false }) {
     repository,
     status,
     visibility,
+    level,
+    type,
   } = project;
 
   const { mutateJoinProject, isJoining } = useJoinProject();
@@ -77,8 +80,13 @@ function Project({ project, pageType, projectOwned = false }) {
         {/* Project Details */}
         <div className="flex flex-col space-y-2">
           <div className="text-gray-600">
-            <strong>Created At:</strong>{" "}
-            {new Date(created_at).toLocaleDateString()}
+            <strong>Created At:</strong> {formatDate(created_at)}
+          </div>
+          <div className="text-gray-600">
+            <strong>Level:</strong> {level}
+          </div>
+          <div className="text-gray-600">
+            <strong>type:</strong> {type}
           </div>
           <div className="text-gray-600">
             <strong>Location:</strong> {place}
