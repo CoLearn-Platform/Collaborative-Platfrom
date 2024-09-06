@@ -3,6 +3,8 @@ import { formatDate } from "../../utils/helper";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import EditUserDetails from "./EditUserDetails";
+import CreateProjectForm from "../projects/CreateProjectForm";
+import CreateRoomForm from "../rooms/CreateRoomForm";
 
 function UserCard({ user, setShowForm }) {
   // destructuring user object
@@ -34,15 +36,28 @@ function UserCard({ user, setShowForm }) {
         </div>
       </div>
       <div className="p-6 flex justify-around">
-        <Button onClick={() => setShowForm("newProjectForm")}>
-          Add New Project
-        </Button>
-        <Button onClick={() => setShowForm("newRoomForm")}>Add New Room</Button>
+        {/* new project modal  */}
         <Modal>
           <Modal.Open>
-            <Button onClick={() => setShowForm("editProfile")}>
-              Edit Profile
-            </Button>
+            <Button>Add New Project</Button>
+          </Modal.Open>
+          <Modal.Window>
+            <CreateProjectForm />
+          </Modal.Window>
+        </Modal>
+        {/* new room modal */}
+        <Modal>
+          <Modal.Open>
+            <Button>Add New Room</Button>
+          </Modal.Open>
+          <Modal.Window>
+            <CreateRoomForm />
+          </Modal.Window>
+        </Modal>
+        {/* edit profile modal */}
+        <Modal>
+          <Modal.Open>
+            <Button>Edit Profile</Button>
           </Modal.Open>
           <Modal.Window>
             <EditUserDetails />
