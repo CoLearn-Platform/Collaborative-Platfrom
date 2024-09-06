@@ -5,7 +5,7 @@ import { useCreateProject } from "./useCreateProject";
 import Button from "../../ui/Button";
 import { useSelector } from "react-redux";
 
-function CreateProjectForm({ setShowForm }) {
+function CreateProjectForm({ setShowForm, onCloseModal }) {
   const {
     register,
     handleSubmit,
@@ -21,10 +21,13 @@ function CreateProjectForm({ setShowForm }) {
 
   function onSubmit(data) {
     console.log(data);
-    createProject(data)?.then(() => {
-      reset(); // Reset form after successful submission
-      setShowForm("dashboard");
-    });
+    createProject(data, {
+      onSuccess: () => {
+        reset();
+        onCloseModal();
+      },
+    }); //m after successful submission
+    setShowForm("dashboard");
   }
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

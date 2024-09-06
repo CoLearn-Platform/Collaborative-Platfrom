@@ -3,12 +3,17 @@ import Button from "../../ui/Button";
 import { useEditProject } from "./useEditProject";
 
 function EditProjectForm({ project, onCloseModal }) {
-  const { register, handleSubmit } = useForm({ defaultValues: project });
+  const { register, handleSubmit, reset } = useForm({ defaultValues: project });
 
   const { updateDetails } = useEditProject({ onSuccess: onCloseModal });
 
   function onSubmit(data) {
-    updateDetails(data);
+    updateDetails(data, {
+      onSuccess: () => {
+        reset();
+        onCloseModal();
+      },
+    });
   }
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
