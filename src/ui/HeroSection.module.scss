@@ -1,0 +1,103 @@
+.heroSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background-color: #f9fafb;
+  
+    // Responsive design
+    @media (min-width: 768px) {
+      flex-direction: row;
+      padding: 4rem;
+    }
+  }
+  
+  .heroContent {
+    flex: 1;
+    padding: 2rem;
+  
+    @media (min-width: 768px) {
+      text-align: left;
+      padding: 4rem 2rem;
+    }
+  }
+  
+  .headline {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  
+    @media (min-width: 768px) {
+      font-size: 3.5rem;
+    }
+  }
+  
+  .subHeadline {
+    font-size: 1.25rem;
+    color: #4b5563;
+    margin-bottom: 2rem;
+  
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .ctaButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  
+    @media (min-width: 768px) {
+      justify-content: flex-start;
+    }
+  }
+  
+  .primaryButton {
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #4338ca;
+    }
+  }
+  
+  .secondaryButton {
+    background-color: transparent;
+    color: #4f46e5;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid #4f46e5;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #4f46e5;
+      color: #ffffff;
+    }
+  }
+  
+  .heroImage {
+    flex: 1;
+    padding: 2rem;
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    @media (min-width: 768px) {
+      padding: 0;
+    }
+  }
+  
