@@ -149,9 +149,14 @@ function Header() {
                 </Button>
               </>
             ) : (
-              <Link to="/auth">
-                <Button styleType="login">Login</Button>
-              </Link>
+              <>
+                <Link to="/auth">
+                  <Button styleType="login">Login</Button>
+                </Link>
+                <Link to="/auth">
+                  <Button styleType="primary">Sign Up</Button>
+                </Link>
+              </>
             )}
           </div>
         </div>
