@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { useJoinProject } from "./useJoinProject";
 import { useLeaveProject } from "./useLeaveProject";
@@ -6,10 +8,11 @@ import { useDeleteProject } from "./useDeleteProject";
 
 import Button from "../../ui/Button";
 import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { IoIosArrowRoundForward } from "react-icons/io";
 import Modal from "../../ui/Modal";
 import EditProjectForm from "./EditProjectForm";
-import { formatDate } from "../../utils/helper";
+
+import styles from "./Project.module.scss";
 
 function Project({ project, pageType, projectOwned = false }) {
   //TODO get userId from auth context
@@ -50,79 +53,91 @@ function Project({ project, pageType, projectOwned = false }) {
     mutateDelete(id);
   }
 
-  function handleDetails() {
-    navigate(`/projects/${id}`);
-  }
-
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-4">
-      <div className="px-2 py-2">
+    <div className={styles.card}>
+      <div className={styles.content}>
         {/* Project Title */}
-        <h2 className="text-xl font-bold text-blue-500 mb-2">{title}</h2>
-
-        {/* Project Status */}
-        <div className="flex items-center mb-4">
-          <span
-            className={`text-sm font-medium ${
-              status === "open" ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            {status}
-          </span>
-          <span className="ml-2 text-gray-500">
-            • {visibility ? "Public" : "Private"}
-          </span>
+        <div className={styles.title__box}>
+          <h2 className={styles.title__box__heading}>{title}</h2>
+          {/* Project Status */}
+          <div className={styles.status}>
+            <span
+              className={`${styles.statusText} ${
+                status === "open" ? styles.statusOpen : styles.statusClosed
+              }`}
+            >
+              {status}
+            </span>
+          </div>
         </div>
 
         {/* Project Description */}
-        <p className="text-gray-700 mb-4">{description}</p>
+        <p className={styles.description}>{description}</p>
 
-        {/* Project Details */}
-        <div className="flex flex-col space-y-2">
-          <div className="text-gray-600">
-            <strong>Created At:</strong> {formatDate(created_at)}
-          </div>
-          <div className="text-gray-600">
-            <strong>Level:</strong> {level}
-          </div>
-          <div className="text-gray-600">
-            <strong>type:</strong> {type}
-          </div>
-          <div className="text-gray-600">
-            <strong>Location:</strong> {place}
-          </div>
-          {repository && (
-            <div className="text-gray-600">
-              <strong>Repository:</strong>{" "}
-              <a
-                href={repository}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                {repository}
-              </a>
-            </div>
-          )}
+        {/* Location */}
+        <div className={styles.location}>
+          <strong>Location:</strong> {place}
         </div>
 
-        {/* Action Buttons */}
-        <div className="mt-3 flex space-x-1">
-          {pageType === "projects" && (
-            <>
-              <Button onClick={handleDetails} disabled={isJoining}>
-                Details
-              </Button>
-              <Button onClick={handleJoinProject} disabled={!isUserLoggedIn}>
-                {!isUserLoggedIn
-                  ? "Login to Join"
-                  : isJoining
-                  ? "Joining..."
-                  : "Join"}
-              </Button>
-            </>
-          )}
-          {pageType === "dashboard" && (
+        {/* Project Details */}
+        <div className={styles.details}>
+          <div>
+            <span className={styles.details__level}>
+              <strong>{level}</strong>
+            </span>
+            <span className={styles.details__type}>
+              <strong>{type}</strong>
+            </span>
+          </div>
+
+          {/* Action Buttons */}
+          <div className={styles.actions}>
+            {pageType === "dashboard" && (
+              <>
+                <Button
+                  onClick={handleLeaveProject}
+                  disabled={isLeaving}
+                  styleType="leave"
+                >
+                  {isLeaving ? "Leaving..." : "Leave"}
+                </Button>
+                {projectOwned && (
+                  <>
+                    <Button
+                      styleType="remove"
+                      onClick={handleDeleteProject}
+                      disabled={isDeleting}
+                    >
+                      <FaTrashAlt />
+                    </Button>
+                    <Modal>
+                      <Modal.Open opens="edit-project">
+                        <Button>
+                          <FaPencilAlt />
+                        </Button>
+                      </Modal.Open>
+                      <Modal.Window name="edit-project">
+                        <EditProjectForm project={project} />
+                      </Modal.Window>
+                    </Modal>
+                  </>
+                )}
+              </>
+            )}
+            <a href={`/projects/${id}`} className={styles.arrowIcon}>
+              <IoIosArrowRoundForward />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Project;
+
+{
+  /* {pageType === "dashboard" && (
             <>
               <Button onClick={handleDetails} disabled={isLeaving}>
                 Details
@@ -156,11 +171,5 @@ function Project({ project, pageType, projectOwned = false }) {
                 </>
               )}
             </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+          )} */
 }
-
-export default Project;

@@ -1,16 +1,16 @@
 .heroSection {
     display: flex;
+    height: 85vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    background-color: #f9fafb;
   
     // Responsive design
     @media (min-width: 768px) {
       flex-direction: row;
-      padding: 4rem;
+      padding: 1rem;
     }
   }
   
@@ -36,6 +36,7 @@
   }
   
   .subHeadline {
+    max-width: 60rem;
     font-size: 1.25rem;
     color: #4b5563;
     margin-bottom: 2rem;
