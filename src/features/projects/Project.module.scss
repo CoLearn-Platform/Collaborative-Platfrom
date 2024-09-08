@@ -7,14 +7,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-size: 1.3rem;
   }
   
   .content {
     display: flex;
     flex-direction: column;
     gap: 12px;
-
-
+    font-size: 1.2rem;
   }
 
   .title__box{
@@ -49,12 +49,10 @@
   }
   
   .description {
-    font-size: 1rem;
     color: #4b5563; /* Tailwind's gray-700 */
   }
   
   .location {
-    font-size: 1rem;
     color: #6b7280; /* Tailwind's gray-600 */
     display: flex;
     gap: 4px;

@@ -49,8 +49,6 @@ function Projects() {
 
   return (
     <div className={styles.projectsContainer}>
-      <h1>Projects</h1>
-
       {/* Search, Filter, and Sort Section */}
       <div className={styles.filtersSection}>
         <input
