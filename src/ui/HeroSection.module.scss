@@ -6,7 +6,6 @@
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    background-color: #f9fafb;
   
     // Responsive design
     @media (min-width: 768px) {
@@ -37,6 +36,7 @@
   }
   
   .subHeadline {
+    max-width: 60rem;
     font-size: 1.25rem;
     color: #4b5563;
     margin-bottom: 2rem;

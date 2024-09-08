@@ -1,26 +1,28 @@
-import styles from './HeroSection.module.scss'; // Import SCSS module
+import { Link } from "react-router-dom";
+import styles from "./HeroSection.module.scss"; // Import SCSS module
 
 function HeroSection() {
   return (
     <section className={styles.heroSection}>
       <div className={styles.heroContent}>
-        <h1 className={styles.headline}>
-          Collaborate. Learn. Grow.
-        </h1>
+        <h1 className={styles.headline}>Collaborate. Learn. Grow.</h1>
         <p className={styles.subHeadline}>
-          Join students from around the world in building innovative projects and accelerating your learning journey.
+          Together we learn, together we grow. Share your knowledge, embrace new
+          perspectives, and speed up your journey to mastery through
+          collaboration.
         </p>
         <div className={styles.ctaButtons}>
-          <button className={styles.primaryButton}>Get Started</button>
-          <button className={styles.secondaryButton}>Learn More</button>
+          <Link to="/projects">
+            <button className={styles.primaryButton}>Get Started</button>
+          </Link>
+          <Link to="/about">
+            <button className={styles.secondaryButton}>Learn More</button>
+          </Link>
         </div>
       </div>
-      <div className={styles.heroImage}>
-        <img
-          src="your-image-url-here.jpg"
-          alt="Hero Illustration"
-        />
-      </div>
+      {/* <div className={styles.heroImage}>
+        <img src="your-image-url-here.jpg" alt="Hero Illustration" />
+      </div> */}
     </section>
   );
 }
