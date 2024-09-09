@@ -91,7 +91,7 @@ export default function Feedback() {
             Send Feedback
           </Button>
         ) : (
-          <p>Please Login First!</p>
+          <strong>Please Login First!</strong>
         )}
       </form>
     </div>

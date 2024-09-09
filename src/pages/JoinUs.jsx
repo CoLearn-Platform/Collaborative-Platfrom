@@ -1,14 +1,31 @@
+import { useForm } from "react-hook-form";
 import styles from "./JoinUs.module.scss";
+import { useAddEnquiry } from "../hooks/useAddEnquiry";
+import { useSelector } from "react-redux";
+import Button from "../ui/Button";
 
 export default function JoinUs() {
+  const { register, handleSubmit, reset } = useForm();
+  const { addEnquiry } = useAddEnquiry();
+  const { user } = useSelector((state) => state.user);
+  const userId = user?.id;
+  const isUserLoggedIn = Boolean(userId);
+
+  function onSubmit(data) {
+    // console.log(data);
+    addEnquiry(data, {
+      onSuccess: reset,
+    });
+  }
   return (
     <div className={styles.container}>
       <div className={styles.formWrapper}>
         <h1 className={styles.title}>Join Our Team</h1>
         <p className={styles.description}>
-          "The best way to predict the future is to create it." <br /> Let’s build something amazing together!
+          The best way to predict the future is to create it. <br /> Let&apos;s
+          build something amazing together!
         </p>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           {/* Name Field */}
           <div className={styles.inputGroup}>
             <label htmlFor="name" className={styles.label}>
@@ -18,6 +35,7 @@ export default function JoinUs() {
               type="text"
               id="name"
               name="name"
+              {...register("name", { required: true })}
               className={styles.input}
               placeholder="Enter your name"
               required
@@ -33,6 +51,8 @@ export default function JoinUs() {
               type="email"
               id="email"
               name="email"
+              defaultValue={user?.email}
+              {...register("email", { required: true })}
               className={styles.input}
               placeholder="Enter your email"
               required
@@ -63,6 +83,7 @@ export default function JoinUs() {
               id="message"
               name="message"
               className={styles.textarea}
+              {...register("message", { required: true })}
               rows="4"
               placeholder="Tell us why you want to join us"
               required
@@ -71,9 +92,13 @@ export default function JoinUs() {
 
           {/* Submit Button */}
           <div className={styles.buttonWrapper}>
-            <button type="submit" className={styles.submitButton}>
-              Send Message
-            </button>
+            {isUserLoggedIn ? (
+              <Button type="submit" className={styles.submitButton}>
+                Send Message
+              </Button>
+            ) : (
+              <strong>Please Login First!</strong>
+            )}
           </div>
         </form>
       </div>
