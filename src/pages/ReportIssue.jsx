@@ -1,70 +1,80 @@
-import { useSelector } from "react-redux";
-import Button from "../ui/Button";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { useAddIssue } from "../hooks/useAddIssue";
+import styles from "./ReportIssue.module.scss";
+import Button from "../ui/Button";
 
-function ReportIssue() {
+export default function ReportIssue() {
   const { register, handleSubmit, reset } = useForm();
   const { user } = useSelector((state) => state.user);
   const userId = user?.id;
   const isUserLoggedIn = Boolean(userId);
 
-  const { mutateIssue, isLoading } = useAddIssue();
+  const { mutateIssue } = useAddIssue();
 
   function onSubmit(data) {
     // console.log(data);
-    mutateIssue(data);
-    reset();
+    mutateIssue(data, {
+      onSuccess: reset,
+    });
   }
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-2xl font-bold mb-4">Report an Issue</h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4">
-            <label
-              htmlFor="issueTitle"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Issue Title
-            </label>
-            <input
-              {...register("userId", { required: true })}
-              defaultValue={userId}
-              hidden
-            />
-            <input
-              type="text"
-              id="issueTitle"
-              {...register("title", { required: true })}
-              className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-              placeholder="Enter issue title"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="issueDescription"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Issue Description
-            </label>
-            <textarea
-              id="issueDescription"
-              {...register("description", { required: true })}
-              className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-              placeholder="Enter issue description"
-              rows={4}
-            ></textarea>
-          </div>
-          {isUserLoggedIn ? (
-            <Button type="submit">Submit</Button>
-          ) : (
-            <p className="text-red-500">Please login to report an issue</p>
-          )}
-        </form>
-      </div>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Report an Issue</h1>
+      <p className={styles.description}>
+        Encountered an issue? Let us know and we’ll get right on it.
+      </p>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.field}>
+          <label htmlFor="email" className={styles.label}>
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            defaultValue={user?.email}
+            className={styles.input}
+            placeholder="Your Email"
+            required
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="title" className={styles.label}>
+            Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            {...register("title", { required: true })}
+            className={styles.input}
+            placeholder="title"
+            required
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="issue" className={styles.label}>
+            Issue
+          </label>
+          <textarea
+            id="issue"
+            name="issue"
+            className={styles.textarea}
+            {...register("description", { required: true })}
+            rows="4"
+            placeholder="Describe the issue"
+            required
+          />
+        </div>
+        {isUserLoggedIn ? (
+          <Button type="submit" className={styles.submitBtn}>
+            Submit Issue
+          </Button>
+        ) : (
+          <p>Please Login First!</p>
+        )}
+      </form>
     </div>
   );
 }
-
-export default ReportIssue;

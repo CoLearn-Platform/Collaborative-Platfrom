@@ -46,14 +46,14 @@ function UserCard({ user, setShowForm }) {
           </Modal.Window>
         </Modal>
         {/* new room modal */}
-        <Modal>
+        {/* <Modal>
           <Modal.Open>
             <Button>Add New Room</Button>
           </Modal.Open>
           <Modal.Window>
             <CreateRoomForm />
           </Modal.Window>
-        </Modal>
+        </Modal> */}
         {/* edit profile modal */}
         <Modal>
           <Modal.Open>

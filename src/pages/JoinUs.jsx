@@ -1,64 +1,68 @@
+import styles from "./JoinUs.module.scss";
+
 export default function JoinUs() {
   return (
-    <div className="min-h-screen bg-gray-50 p-8 flex flex-col items-center justify-center">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
-          Join Us
-        </h1>
-        <p className="text-lg text-gray-600 text-center mb-8">
-          We’re always looking for passionate individuals to join our team and
-          contribute to our mission. If you&apos;re interested in working with
-          us or have any questions, please fill out the form below.
+    <div className={styles.container}>
+      <div className={styles.formWrapper}>
+        <h1 className={styles.title}>Join Our Team</h1>
+        <p className={styles.description}>
+          "The best way to predict the future is to create it." <br /> Let’s build something amazing together!
         </p>
-        <form className="space-y-4">
+        <form className={styles.form}>
           {/* Name Field */}
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-gray-700 font-medium mb-2"
-            >
+          <div className={styles.inputGroup}>
+            <label htmlFor="name" className={styles.label}>
               Name
             </label>
             <input
               type="text"
               id="name"
               name="name"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.input}
               placeholder="Enter your name"
               required
             />
           </div>
 
           {/* Email Field */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-medium mb-2"
-            >
+          <div className={styles.inputGroup}>
+            <label htmlFor="email" className={styles.label}>
               Email
             </label>
             <input
               type="email"
               id="email"
               name="email"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.input}
               placeholder="Enter your email"
               required
             />
           </div>
 
+          {/* Skill Field */}
+          <div className={styles.inputGroup}>
+            <label htmlFor="skill" className={styles.label}>
+              Skill
+            </label>
+            <input
+              type="text"
+              id="skill"
+              name="skill"
+              className={styles.input}
+              placeholder="Your skills..."
+              required
+            />
+          </div>
+
           {/* Message Field */}
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-gray-700 font-medium mb-2"
-            >
+          <div className={styles.inputGroup}>
+            <label htmlFor="message" className={styles.label}>
               Message
             </label>
             <textarea
               id="message"
               name="message"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={styles.textarea}
               rows="4"
               placeholder="Tell us why you want to join us"
               required
@@ -66,11 +70,8 @@ export default function JoinUs() {
           </div>
 
           {/* Submit Button */}
-          <div className="mt-6">
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white font-semibold py-3 px-6 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200"
-            >
+          <div className={styles.buttonWrapper}>
+            <button type="submit" className={styles.submitButton}>
               Send Message
             </button>
           </div>

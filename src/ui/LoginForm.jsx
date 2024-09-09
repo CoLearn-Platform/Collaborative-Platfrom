@@ -15,7 +15,7 @@ function LoginForm() {
 
   const dispatch = useDispatch();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
       toast.success("Login successful");
@@ -54,7 +54,7 @@ function LoginForm() {
           placeholder="Enter your password"
         />
       </div>
-      <Button type="submit">Login</Button>
+      <Button type="submit" disabled={isPending}>Login</Button>
     </form>
   );
 }

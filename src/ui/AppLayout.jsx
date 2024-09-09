@@ -7,7 +7,7 @@ function AppLayout() {
   return (
     <>
       <Header />
-      <main>
+      <main style={{minHeight:"70vh"}}>
         <Outlet />
       </main>
       <Footer />

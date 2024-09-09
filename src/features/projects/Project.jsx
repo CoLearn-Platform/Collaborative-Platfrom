@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { useJoinProject } from "./useJoinProject";
 import { useLeaveProject } from "./useLeaveProject";
 import { useDeleteProject } from "./useDeleteProject";
 
@@ -18,8 +16,6 @@ function Project({ project, pageType, projectOwned = false }) {
   //TODO get userId from auth context
   const { user } = useSelector((state) => state.user);
   const userId = user?.id;
-  const isUserLoggedIn = Boolean(userId);
-  const navigate = useNavigate();
   const {
     id,
     title,
@@ -33,15 +29,9 @@ function Project({ project, pageType, projectOwned = false }) {
     type,
   } = project;
 
-  const { mutateJoinProject, isJoining } = useJoinProject();
-
   const { mutateLeave, isLeaving } = useLeaveProject();
 
   const { mutateDelete, isDeleting } = useDeleteProject();
-  function handleJoinProject() {
-    mutateJoinProject({ id, userId });
-    // console.log(id, userId);
-  }
 
   function handleLeaveProject() {
     // console.log("leave project");
@@ -124,9 +114,9 @@ function Project({ project, pageType, projectOwned = false }) {
                 )}
               </>
             )}
-            <a href={`/projects/${id}`} className={styles.arrowIcon}>
+            <Link to={`/projects/${id}`} className={styles.arrowIcon}>
               <IoIosArrowRoundForward />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -135,41 +125,3 @@ function Project({ project, pageType, projectOwned = false }) {
 }
 
 export default Project;
-
-{
-  /* {pageType === "dashboard" && (
-            <>
-              <Button onClick={handleDetails} disabled={isLeaving}>
-                Details
-              </Button>
-              <Button
-                onClick={handleLeaveProject}
-                disabled={isLeaving}
-                styleType="leave"
-              >
-                {isLeaving ? "Leaving..." : "Leave"}
-              </Button>
-              {projectOwned && (
-                <>
-                  <Button
-                    styleType="remove"
-                    onClick={handleDeleteProject}
-                    disabled={isDeleting}
-                  >
-                    <FaTrashAlt />
-                  </Button>
-                  <Modal>
-                    <Modal.Open opens="edit-project">
-                      <Button>
-                        <FaPencilAlt />
-                      </Button>
-                    </Modal.Open>
-                    <Modal.Window name="edit-project">
-                      <EditProjectForm project={project} />
-                    </Modal.Window>
-                  </Modal>
-                </>
-              )}
-            </>
-          )} */
-}

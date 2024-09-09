@@ -1,0 +1,125 @@
+.container {
+    min-height: 100vh;
+    background: linear-gradient(to right, #ece9e6, #ffffff);
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .formWrapper {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #34495e;
+    margin-bottom: 0.5rem;
+  }
+  
+  .input,
+  .textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    outline: none;
+    font-size: 1rem;
+    color: #34495e;
+    transition: border-color 0.2s ease;
+  }
+  
+  .input:focus,
+  .textarea:focus {
+    border-color: #2980b9;
+  }
+  
+  .textarea {
+    resize: none;
+  }
+  
+  .buttonWrapper {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .submitButton {
+    background-color: #2980b9;
+    color: white;
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #3498db;
+  }
+  
+  @media (max-width: 768px) {
+    .formWrapper {
+      padding: 1.5rem;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .description {
+      font-size: 1rem;
+    }
+  
+    .submitButton {
+      font-size: 1rem;
+      padding: 0.6rem 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .formWrapper {
+      padding: 1rem;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .description {
+      font-size: 0.9rem;
+    }
+  }
+  

@@ -55,9 +55,9 @@ function Header() {
             <Link to="/projects" className={styles.navLink}>
               Projects
             </Link>
-            <Link to="/rooms" className={styles.navLink}>
+            {/* <Link to="/rooms" className={styles.navLink}>
               Learning Rooms
-            </Link>
+            </Link> */}
             <Link to="/about" className={styles.navLink}>
               About Us
             </Link>
@@ -89,13 +89,13 @@ function Header() {
                 >
                   Projects
                 </Link>
-                <Link
+                {/* <Link
                   to="/rooms"
                   className={styles.navLink}
                   onClick={toggleMenu}
                 >
                   Learning Rooms
-                </Link>
+                </Link> */}
                 <Link
                   to="/about"
                   className={styles.navLink}
