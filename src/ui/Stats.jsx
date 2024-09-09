@@ -1,22 +1,20 @@
+import { useGetAllProjects } from "../features/projects/useGetAllProjects";
+import { useGetTotalActiveUsers } from "../features/user/useGetTotalActiveUsers";
 import styles from "./Stats.module.scss"; // SCSS module import
 
 function Stats() {
+  const { projects } = useGetAllProjects();
+  const { totalActiveUsers } = useGetTotalActiveUsers();
   const stats = [
     {
       title: "Active Projects",
-      value: "240+",
+      value: projects.length + "+",
       description: "Collaboration in active projects from around the world.",
       icon: "📈", // Placeholder icon
     },
     {
-      title: "Learning Rooms",
-      value: "120+",
-      description: "Rooms created to facilitate collaborative learning.",
-      icon: "📚", // Placeholder icon
-    },
-    {
       title: "Contributors",
-      value: "500+",
+      value: totalActiveUsers + "+",
       description: "Students and professionals contributing actively.",
       icon: "👩‍💻", // Placeholder icon
     },
