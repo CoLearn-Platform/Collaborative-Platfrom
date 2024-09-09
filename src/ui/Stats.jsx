@@ -8,7 +8,7 @@ function Stats() {
   const stats = [
     {
       title: "Active Projects",
-      value: projects.length + "+",
+      value: projects?.length + "+",
       description: "Collaboration in active projects from around the world.",
       icon: "📈", // Placeholder icon
     },
