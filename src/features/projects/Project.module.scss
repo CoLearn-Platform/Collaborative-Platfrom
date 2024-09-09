@@ -1,0 +1,87 @@
+.card {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    margin: 0.5rem;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 1.2rem;
+  }
+
+  .title__box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &__heading {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #1e3a8a; /* Tailwind's blue-900 */
+    }
+}
+  
+  .status {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .statusText {
+    font-size: 1rem;
+    font-weight: medium;
+  }
+  
+  .statusOpen {
+    color: #10b981; /* Tailwind's green-500 */
+  }
+  
+  .statusClosed {
+    color: #ef4444; /* Tailwind's red-500 */
+  }
+  
+  .description {
+    color: #4b5563; /* Tailwind's gray-700 */
+  }
+  
+  .location {
+    color: #6b7280; /* Tailwind's gray-600 */
+    display: flex;
+    gap: 4px;
+  }
+
+  .details{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__level, &__type{
+        margin-right: 1rem;
+    }
+}
+  
+  .actions {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .arrowIcon {
+    font-size: 2rem;
+    color: #6b7280; /* Tailwind's gray-600 */
+    transition: color 0.3s ease;
+  }
+  
+  .arrowIcon:hover {
+    color: #1e3a8a; /* Tailwind's blue-900 */
+  }
+  

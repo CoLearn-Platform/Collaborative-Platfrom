@@ -1,11 +1,13 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import Button from "./Button";
+import { useMutation} from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { signIn } from "../services/apiAuth";
-import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { setUser } from "../features/user/userSlice";
 import { useNavigate } from "react-router";
+
+import { signIn } from "../services/apiAuth";
+import { setUser } from "../features/user/userSlice";
+
+import toast from "react-hot-toast";
+import Button from "./Button";
 
 function LoginForm() {
   const { register, handleSubmit, reset } = useForm();
@@ -13,7 +15,7 @@ function LoginForm() {
 
   const dispatch = useDispatch();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: signIn,
     onSuccess: (data) => {
       toast.success("Login successful");
@@ -52,7 +54,7 @@ function LoginForm() {
           placeholder="Enter your password"
         />
       </div>
-      <Button type="submit">Login</Button>
+      <Button type="submit" disabled={isPending}>Login</Button>
     </form>
   );
 }

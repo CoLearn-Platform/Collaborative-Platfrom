@@ -4,7 +4,7 @@ import Button from "../../ui/Button";
 import { useCreateRoom } from "./useCreateRoom";
 import { useSelector } from "react-redux";
 
-function CreateRoomForm({ setShowForm }) {
+function CreateRoomForm({ setShowForm, onCloseModal }) {
   const {
     register,
     handleSubmit,
@@ -19,10 +19,13 @@ function CreateRoomForm({ setShowForm }) {
   const { createRoom, isCreating } = useCreateRoom();
 
   function onSubmit(data) {
-    createRoom(data)?.then(() => {
-      reset(); // Reset form after successful submission
-      setShowForm("dashboard");
-    });
+    createRoom(data, {
+      onSuccess: () => {
+        reset();
+        onCloseModal();
+      },
+    }); // Reset form after successful submission
+    setShowForm("dashboard");
   }
 
   return (

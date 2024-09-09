@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { logout } from "../services/apiAuth";
 import toast from "react-hot-toast";
 import { removeUser } from "../features/user/userSlice";
+import styles from "./Header.module.scss"; // Import the SCSS module
 
 function Header() {
   const navigate = useNavigate();
@@ -24,12 +25,10 @@ function Header() {
   const { mutate: mutateLogout, isLoading: isLoggingOut } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      console.log("logout success");
       toast.success("Logged out successfully");
       dispatch(removeUser());
     },
     onError: (error) => {
-      console.log("error in logout", error);
       toast.error("Error in logging out");
     },
   });
@@ -40,85 +39,66 @@ function Header() {
   }
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div className={styles.flexContainer}>
           {/* Logo */}
-          <div className="text-2xl font-bold text-blue-500">
+          <div className={styles.logo}>
             <Link to="/">CoLearn</Link>
           </div>
 
           {/* Navigation */}
-          <nav className="hidden md:flex space-x-6">
-            <Link
-              to="/"
-              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
-            >
+          <nav className={styles.navDesktop}>
+            <Link to="/" className={styles.navLink}>
               Home
             </Link>
-            <Link
-              to="/projects"
-              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
-            >
+            <Link to="/projects" className={styles.navLink}>
               Projects
             </Link>
-            <Link
-              to="/rooms"
-              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
-            >
+            {/* <Link to="/rooms" className={styles.navLink}>
               Learning Rooms
-            </Link>
-            <Link
-              to="/about"
-              className="text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
-            >
+            </Link> */}
+            <Link to="/about" className={styles.navLink}>
               About Us
             </Link>
           </nav>
 
           {/* Mobile Menu */}
-          <div className="md:hidden">
+          <div className={styles.menuButton}>
             <Button onClick={toggleMenu}>Menu</Button>
           </div>
 
           {/* Menu Container */}
           <div
-            className={`fixed top-0 right-0 w-64 h-full bg-white shadow-lg transform transition-transform ${
-              isMenuOpen ? "translate-x-0" : "translate-x-full"
-            } md:hidden`}
+            className={`${styles.menuContainer} ${
+              isMenuOpen ? styles.menuOpen : styles.menuClosed
+            }`}
           >
-            <div className="p-4">
-              <button
-                onClick={toggleMenu}
-                className="text-gray-600 hover:text-blue-500"
-              >
-                <span className="text-2xl">×</span> {/* Close icon */}
+            <div className={styles.menuContent}>
+              <button onClick={toggleMenu} className={styles.closeButton}>
+                <span className={styles.closeIcon}>×</span> {/* Close icon */}
               </button>
-              <nav className="mt-4 space-y-4">
-                <Link
-                  to="/"
-                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
-                  onClick={toggleMenu}
-                >
+              <nav className={styles.navMobile}>
+                <Link to="/" className={styles.navLink} onClick={toggleMenu}>
                   Home
                 </Link>
                 <Link
                   to="/projects"
-                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                  className={styles.navLink}
                   onClick={toggleMenu}
                 >
                   Projects
                 </Link>
-                <Link
+                {/* <Link
                   to="/rooms"
-                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                  className={styles.navLink}
                   onClick={toggleMenu}
                 >
                   Learning Rooms
-                </Link>
+                </Link> */}
                 <Link
                   to="/about"
-                  className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                  className={styles.navLink}
                   onClick={toggleMenu}
                 >
                   About Us
@@ -127,7 +107,7 @@ function Header() {
                   <>
                     <Link
                       to="/dashboard"
-                      className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                      className={styles.navLink}
                       onClick={toggleMenu}
                     >
                       Dashboard
@@ -143,7 +123,7 @@ function Header() {
                 ) : (
                   <Link
                     to="/auth"
-                    className="block text-gray-600 hover:text-blue-500 font-semibold transition duration-200"
+                    className={styles.navLink}
                     onClick={toggleMenu}
                   >
                     Login
@@ -154,7 +134,7 @@ function Header() {
           </div>
 
           {/* Action Button */}
-          <div className="hidden md:flex">
+          <div className={styles.actionButtons}>
             {isAuthenticated ? (
               <>
                 <Link to="/dashboard">
@@ -169,9 +149,14 @@ function Header() {
                 </Button>
               </>
             ) : (
-              <Link to="/auth">
-                <Button styleType="login">Login</Button>
-              </Link>
+              <>
+                <Link to="/auth">
+                  <Button styleType="login">Login</Button>
+                </Link>
+                <Link to="/auth">
+                  <Button styleType="primary">Sign Up</Button>
+                </Link>
+              </>
             )}
           </div>
         </div>

@@ -80,3 +80,13 @@ export async function leaveRoom(roomId, userId) {
 
   return data;
 }
+
+// get total number of active users
+export async function getTotalActiveUsers() {
+  let { data: users, error } = await supabase.from("users").select("*");
+  if (error) {
+    console.log("error in getting total active users", error);
+    throw new Error(error.message);
+  }
+  return users.length;
+}

@@ -162,3 +162,22 @@ export async function deleteProject(projectId) {
     throw new Error(error.message);
   }
 }
+
+// updating a project
+
+export async function updateProject(newData) {
+  // console.log(newData);
+
+  if (!newData.id) throw new Error("invalid project id");
+
+  const { data, error } = await supabase
+    .from("projects")
+    .update(newData)
+    .eq("id", newData.id)
+    .select();
+  if (error) {
+    console.log("error in updating project", error);
+    throw new Error(error.message);
+  }
+  return data;
+}
