@@ -40,15 +40,17 @@ function FeatureSection() {
   return (
     <section className={styles.featureSection}>
       <div className={styles.header}>
-        <h2>Log everything. Troubleshoot anything.</h2>
+        <h2>Collaborate Seamlessly. Build Together.</h2>
         <p>
-          Visualize your entire stack, aggregate all your logs into structured
-          data, and query everything like a single database with SQL.
+          Connect with fellow students, collaborate on projects, track your
+          progress, and turn ideas into reality. Leverage the power of teamwork
+          to accomplish more together.
         </p>
         <a href="#" className={styles.exploreLink}>
-          Explore logs &rarr;
+          Discover Projects &rarr;
         </a>
       </div>
+
       <div className={styles.features}>
         {features.map((feature, index) => (
           <div key={index} className={styles.featureCard}>
