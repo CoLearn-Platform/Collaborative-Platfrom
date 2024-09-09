@@ -72,7 +72,7 @@ export default function ReportIssue() {
             Submit Issue
           </Button>
         ) : (
-          <p>Please Login First!</p>
+          <strong>Please Login First!</strong>
         )}
       </form>
     </div>
