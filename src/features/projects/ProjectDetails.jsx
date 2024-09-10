@@ -39,6 +39,8 @@ function ProjectDetails() {
   const { name: ownerName, email: ownerEmail, id: ownerId } = owner?.[0] || {};
 
   const { skills } = useRequiredSkills(projectId);
+  console.log(skills);
+  console.log(projectId);
 
   function handleNavigateBack() {
     navigate(-1);

@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form";
-
 import { useCreateProject } from "./useCreateProject";
-
 import Button from "../../ui/Button";
 import { useSelector } from "react-redux";
+import styles from "./CreateProjectForm.module.scss";
 
 function CreateProjectForm({ setShowForm, onCloseModal }) {
   const {
@@ -12,137 +11,151 @@ function CreateProjectForm({ setShowForm, onCloseModal }) {
     reset,
     formState: { errors },
   } = useForm();
-  //TODO get userId from auth context
   const { user } = useSelector((state) => state?.user);
-  // console.log(user.id);
   const userId = user?.id;
-
   const { createProject, isCreating } = useCreateProject();
 
   function onSubmit(data) {
-    console.log(data);
     createProject(data, {
       onSuccess: () => {
         reset();
         onCloseModal();
       },
-    }); //m after successful submission
-    setShowForm("dashboard");
+    });
   }
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-md shadow-md w-full max-w-lg"
-      >
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Create New Project
-        </h2>
+    <div className={styles.formWrapper}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <h2 className={styles.title}>Create New Project</h2>
 
         <input value={userId} {...register("created_by")} hidden />
 
         {/* Project Title */}
-        <div className="mb-4">
-          <label className="block text-gray-700">Project Title</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Project Title</label>
           <input
             type="text"
             {...register("title", { required: "Project title is required" })}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={styles.input}
             placeholder="Enter project title"
           />
           {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title.message}</p>
+            <p className={styles.error}>{errors.title.message}</p>
           )}
         </div>
 
         {/* Project Description */}
-        <div className="mb-4">
-          <label className="block text-gray-700">Description</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Description</label>
           <textarea
             {...register("description", {
               required: "Project description is required",
             })}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={styles.textarea}
             placeholder="Enter project description"
             rows="3"
           />
           {errors.description && (
-            <p className="text-red-500 text-sm">{errors.description.message}</p>
+            <p className={styles.error}>{errors.description.message}</p>
           )}
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Project Summary</label>
+
+        {/* Project Summary */}
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Project Summary</label>
           <textarea
             {...register("projectSummary", {
               required: "Project summary is required",
             })}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={styles.textarea}
             placeholder="Enter project summary"
             rows="3"
           />
           {errors.projectSummary && (
-            <p className="text-red-500 text-sm">
-              {errors.projectSummary.message}
-            </p>
+            <p className={styles.error}>{errors.projectSummary.message}</p>
           )}
         </div>
 
         {/* Project Status */}
-        <div className="mb-4">
-          <label className="block text-gray-700">Status</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Status</label>
           <select
             {...register("status", { required: "Project status is required" })}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={styles.select}
           >
             <option value="OPEN">OPEN</option>
             <option value="CLOSED">CLOSED</option>
           </select>
           {errors.status && (
-            <p className="text-red-500 text-sm">{errors.status.message}</p>
+            <p className={styles.error}>{errors.status.message}</p>
           )}
         </div>
 
         {/* Project Visibility */}
-        <div className="mb-4 flex items-center">
-          <input type="checkbox" {...register("visibility")} className="mr-2" />
+        <div className={styles.formGroupInline}>
+          <input
+            type="checkbox"
+            {...register("visibility")}
+            className={styles.checkbox}
+          />
           <span>Visible</span>
         </div>
 
         {/* Project Repository */}
-        <div className="mb-4">
-          <label className="block text-gray-700">Repository</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Repository</label>
           <input
             type="url"
             {...register("repository", {
               required: "Repository URL is required",
             })}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={styles.input}
             placeholder="Enter repository URL"
           />
           {errors.repository && (
-            <p className="text-red-500 text-sm">{errors.repository.message}</p>
+            <p className={styles.error}>{errors.repository.message}</p>
+          )}
+        </div>
+        {/* Required Skills */}
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Required Skills</label>
+          <input
+            type="text"
+            {...register("skills", {
+              required: "Repository URL is required",
+            })}
+            className={styles.input}
+            placeholder="Enter Required Skills seperated by comma..."
+          />
+          {errors.repository && (
+            <p className={styles.error}>{errors.skills.message}</p>
           )}
         </div>
 
         {/* Project Place */}
-        <div className="mb-4">
-          <label className="block text-gray-700">Place</label>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>Place</label>
           <input
             type="text"
             {...register("place", { required: "Project location is required" })}
-            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className={styles.input}
             placeholder="Enter project location"
           />
           {errors.place && (
-            <p className="text-red-500 text-sm">{errors.place.message}</p>
+            <p className={styles.error}>{errors.place.message}</p>
           )}
         </div>
 
         {/* Submit Button */}
-        <Button type="submit" disabled={isCreating}>
-          {isCreating ? "Creating..." : "Create Project"}
-        </Button>
-        <Button onClick={() => setShowForm("dashboard")}>Back</Button>
+        <div className={styles.buttonGroup}>
+          <Button type="submit" disabled={isCreating}>
+            {isCreating ? "Creating..." : "Create Project"}
+          </Button>
+          <Button type="button" onClick={() => setShowForm("dashboard")}>
+            Back
+          </Button>
+        </div>
       </form>
     </div>
   );

@@ -24,6 +24,22 @@
         background-color: #5a6268;
       }
     }
+    &.none {
+      color: black;
+      
+      &:hover {
+        transform: scale(1.01);
+      }
+    }
+  
+    &.secondary {
+      background-color: #6c757d;
+      color: white;
+  
+      &:hover {
+        background-color: #5a6268;
+      }
+    }
   
     &.danger {
       background-color: #dc3545;

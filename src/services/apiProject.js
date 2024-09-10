@@ -121,9 +121,31 @@ export async function getProjectJoined(userId) {
 // creating a new project
 
 export async function createNewProject(data) {
+  const {
+    created_by,
+    description,
+    place,
+    projectSummary,
+    repository,
+    status,
+    skills,
+    title,
+    visibility,
+  } = data;
   const { data: newProject, error } = await supabase
     .from("projects")
-    .insert([data])
+    .insert([
+      {
+        created_by,
+        description,
+        place,
+        projectSummary,
+        repository,
+        status,
+        title,
+        visibility,
+      },
+    ])
     .select();
 
   if (error) {
@@ -132,7 +154,8 @@ export async function createNewProject(data) {
   }
   // also add the user as the leader of the project
 
-  const { projectId, created_by: userId } = newProject[0];
+  const { id: projectId, created_by: userId } = newProject[0];
+  console.log(projectId, userId);
 
   const { data: member, error: errorInAddingMembership } = await supabase
     .from("members")
@@ -147,19 +170,55 @@ export async function createNewProject(data) {
     throw new Error(error.message);
   }
 
+  // adding the required skills for the project
+  skills.split(",").forEach(async (skill) => {
+    const { data, error } = await supabase
+      .from("requiredSkills")
+      .insert([{ projectId, skill }])
+      .select();
+
+    if (error) {
+      console.log("error in adding required skills", error);
+      throw new Error(error.message);
+    }
+  });
+
   return newProject;
 }
 
 // deleting a project
 export async function deleteProject(projectId) {
-  const { error } = await supabase
+  // First, delete records from the `members` table where the projectId matches
+  const { error: errorInDeletingMembers } = await supabase
+    .from("members")
+    .delete()
+    .eq("projectId", projectId);
+
+  if (errorInDeletingMembers) {
+    console.log("error in deleting members", errorInDeletingMembers);
+    throw new Error(errorInDeletingMembers.message);
+  }
+
+  // Delete the project from the `projects` table
+  const { error: errorInDeletingProject } = await supabase
     .from("projects")
     .delete()
     .eq("id", projectId);
 
-  if (error) {
-    console.log("error in deleting project", error);
-    throw new Error(error.message);
+  if (errorInDeletingProject) {
+    console.log("error in deleting project", errorInDeletingProject);
+    throw new Error(errorInDeletingProject.message);
+  }
+
+  // Finally, delete related skills from the `requiredSkills` table
+  const { error: errorInDeletingSkills } = await supabase
+    .from("requiredSkills")
+    .delete()
+    .eq("projectId", projectId);
+
+  if (errorInDeletingSkills) {
+    console.log("error in deleting skills", errorInDeletingSkills);
+    throw new Error(errorInDeletingSkills.message);
   }
 }
 
