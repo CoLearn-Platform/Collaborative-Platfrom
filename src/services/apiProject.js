@@ -199,6 +199,17 @@ export async function deleteProject(projectId) {
     throw new Error(errorInDeletingMembers.message);
   }
 
+  // delete related skills from the `requiredSkills` table
+  const { error: errorInDeletingSkills } = await supabase
+    .from("requiredSkills")
+    .delete()
+    .eq("projectId", projectId);
+
+  if (errorInDeletingSkills) {
+    console.log("error in deleting skills", errorInDeletingSkills);
+    throw new Error(errorInDeletingSkills.message);
+  }
+
   // Delete the project from the `projects` table
   const { error: errorInDeletingProject } = await supabase
     .from("projects")
@@ -210,16 +221,7 @@ export async function deleteProject(projectId) {
     throw new Error(errorInDeletingProject.message);
   }
 
-  // Finally, delete related skills from the `requiredSkills` table
-  const { error: errorInDeletingSkills } = await supabase
-    .from("requiredSkills")
-    .delete()
-    .eq("projectId", projectId);
-
-  if (errorInDeletingSkills) {
-    console.log("error in deleting skills", errorInDeletingSkills);
-    throw new Error(errorInDeletingSkills.message);
-  }
+  
 }
 
 // updating a project
