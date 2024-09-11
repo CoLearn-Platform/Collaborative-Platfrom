@@ -37,6 +37,7 @@ function Window({ children, name }) {
         <div className="flex justify-end">
           <Button
             onClick={close}
+            styleType={"none"}
             className="p-2 rounded-full hover:bg-gray-200"
           >
             <HiXMark className="w-6 h-6 text-gray-600" />

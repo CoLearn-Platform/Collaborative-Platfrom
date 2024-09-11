@@ -12,8 +12,9 @@ export function useCreateProject() {
     onSuccess: () => {
       toast.success("Project created successfully");
     },
-    onError: () => {
+    onError: (error) => {
       toast.error("Failed to create project");
+      console.log(error);
     },
   });
   return { createProject, isCreating, error };

@@ -8,13 +8,13 @@ function Stats() {
   const stats = [
     {
       title: "Active Projects",
-      value: projects?.length + "+",
+      value: projects?.length ? projects?.length + "+" : 10 + "+",
       description: "Collaboration in active projects from around the world.",
       icon: "📈", // Placeholder icon
     },
     {
       title: "Contributors",
-      value: totalActiveUsers + "+",
+      value: totalActiveUsers ? totalActiveUsers + "+" : 10 + "+",
       description: "Students and professionals contributing actively.",
       icon: "👩‍💻", // Placeholder icon
     },
