@@ -3,8 +3,10 @@ import { useCreateProject } from "./useCreateProject";
 import Button from "../../ui/Button";
 import { useSelector } from "react-redux";
 import styles from "./CreateProjectForm.module.scss";
+import { useQueryClient } from "@tanstack/react-query";
 
 function CreateProjectForm({ setShowForm, onCloseModal }) {
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -19,6 +21,7 @@ function CreateProjectForm({ setShowForm, onCloseModal }) {
     createProject(data, {
       onSuccess: () => {
         reset();
+        queryClient.invalidateQueries(["projectsOwned"]);
         onCloseModal();
       },
     });
