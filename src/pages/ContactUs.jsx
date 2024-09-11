@@ -1,48 +1,59 @@
-import styles from "./ContactUs.module.scss";
+import styles from "./Contact.module.scss";
 
-export default function ContactUs() {
+const teamMembers = [
+  {
+    name: "Chetan Meena",
+    position: "Project Manager",
+    email: "chetanmeenaji11@gmail.com",
+    avatar: "../../public/team data/chetan.jpg", // Replace with actual avatar URL
+    phone: "+91 8112243755",
+  },
+  {
+    name: "Dikshant Sharma",
+    position: "Lead Developer",
+    email: "dikshantsharma2005@gmail.com",
+    avatar: "../../public/team data/dikshant.jpg", // Replace with actual avatar URL
+    phone: "+91 9782128602",
+  },
+];
+
+const ContactUs = () => {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Contact Us</h1>
-      <p className={styles.description}>
-        Need to get in touch with us? Fill out the form below and we’ll get back to you soon.
-      </p>
-      <form className={styles.form}>
-        <div className={styles.field}>
-          <label htmlFor="name" className={styles.label}>Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className={styles.input}
-            placeholder="Your Name"
-            required
-          />
+    <div className={styles.contactUs}>
+      <section className={styles.contactInfo}>
+        <h1>Contact Us</h1>
+        <p>Feel free to reach out to us using the information below.</p>
+        <ul>
+          <li>
+            <strong>Email:</strong> colearn.platform@gmail.com
+          </li>
+        </ul>
+      </section>
+
+      <section className={styles.teamSection}>
+        <h2>Meet Our Team</h2>
+        <div className={styles.teamList}>
+          {teamMembers.map((member, index) => (
+            <div key={index} className={styles.teamMember}>
+              <img
+                src={member.avatar}
+                alt={`${member.name} avatar`}
+                className={styles.avatar}
+              />
+              <h3>{member.name}</h3>
+              <p>{member.position}</p>
+              <p>
+                <strong>Email:</strong> {member.email}
+              </p>
+              <p>
+                <strong>Phone:</strong> {member.phone}
+              </p>
+            </div>
+          ))}
         </div>
-        <div className={styles.field}>
-          <label htmlFor="email" className={styles.label}>Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className={styles.input}
-            placeholder="Your Email"
-            required
-          />
-        </div>
-        <div className={styles.field}>
-          <label htmlFor="message" className={styles.label}>Message</label>
-          <textarea
-            id="message"
-            name="message"
-            className={styles.textarea}
-            rows="4"
-            placeholder="Type your message"
-            required
-          />
-        </div>
-        <button type="submit" className={styles.submitBtn}>Send Message</button>
-      </form>
+      </section>
     </div>
   );
-}
+};
+
+export default ContactUs;
