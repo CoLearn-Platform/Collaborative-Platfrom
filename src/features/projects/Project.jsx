@@ -11,8 +11,10 @@ import Modal from "../../ui/Modal";
 import EditProjectForm from "./EditProjectForm";
 
 import styles from "./Project.module.scss";
+import { useQueryClient } from "@tanstack/react-query";
 
 function Project({ project, pageType, projectOwned = false }) {
+  const queryClient = useQueryClient();
   //TODO get userId from auth context
   const { user } = useSelector((state) => state.user);
   const userId = user?.id;
@@ -40,7 +42,11 @@ function Project({ project, pageType, projectOwned = false }) {
 
   function handleDeleteProject() {
     // console.log("delete project");
-    mutateDelete(id);
+    mutateDelete(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["projectsOwned"]);
+      },
+    });
   }
 
   return (
