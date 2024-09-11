@@ -18,6 +18,7 @@ import ReportIssue from "./pages/ReportIssue";
 import UserProfile from "./features/user/UserProfile";
 import Support from "./pages/Support";
 import JoinUs from "./pages/JoinUs";
+import ContactUs from "./pages/ContactUs";
 
 // creating react query client
 const queryClient = new QueryClient({
@@ -48,6 +49,7 @@ function App() {
               <Route path="report" element={<ReportIssue />} />
               <Route path="support" element={<Support />} />
               <Route path="joinUs" element={<JoinUs />} />
+              <Route path="contact" element={<ContactUs />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Routes>
