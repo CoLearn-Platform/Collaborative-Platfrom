@@ -5,18 +5,24 @@ import { signup } from "../services/apiAuth";
 import toast from "react-hot-toast";
 
 function RegisterForm() {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
+  // errors ? console.log(errors) : console.log("no errors");
   const { mutate } = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
       console.log(data);
-      toast.success("email verification link sent to your email");
+      toast.success("registration successful! Please login");
       reset();
     },
     onError: (error) => {
       console.log(error);
-      toast.error("Registration failed");
+      toast.error("registration failed");
     },
   });
 
@@ -35,15 +41,24 @@ function RegisterForm() {
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your name"
         />
+        {errors.name?.type === "required" && (
+          <p className="text-red-800">Name is required</p>
+        )}
       </div>
       <div className="mb-4">
         <label className="block text-gray-700">Email</label>
         <input
           type="email"
-          {...register("email", { required: true })}
+          {...register("email", {
+            required: true,
+            message: "Email is required",
+          })}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your email"
         />
+        {errors.email?.type === "required" && (
+          <p className="text-red-800">Email is required</p>
+        )}
       </div>
       <div className="mb-4">
         <label className="block text-gray-700">Password</label>
@@ -57,10 +72,21 @@ function RegisterForm() {
         <label className="block text-gray-700">Confirm Password</label>
         <input
           type="password"
-          {...register("password", { required: true })}
+          {...register("password", {
+            minLength: {
+              value: 6, // 6 length Password is required
+              message: "6 length Password is required",
+            },
+          })}
+          required
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Confirm your password"
         />
+        {errors.password?.type === "minLength" && (
+          <p className="text-red-800">
+            Password must have atleast 6 characters
+          </p>
+        )}
       </div>
       <Button type="submit">Register</Button>
     </form>
