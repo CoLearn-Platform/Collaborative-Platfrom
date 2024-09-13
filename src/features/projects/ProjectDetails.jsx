@@ -1,14 +1,13 @@
 import { useNavigate, useParams } from "react-router";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
 import { useProjectDetail } from "./useProjectDetail";
-import { useProjectMembers } from "./useProjectMembers";
 import { useJoinProject } from "./useJoinProject";
 import { formatDate } from "../../utils/helper";
-import { useGetUserDetail } from "../user/useGetUserDetail";
-import { useRequiredSkills } from "./useRequiredSkills";
+
 import Loader from "../../ui/Loader";
 import Button from "../../ui/Button";
-import { useSelector } from "react-redux";
 
 function ProjectDetails() {
   //TODO get userId from auth context
@@ -19,28 +18,22 @@ function ProjectDetails() {
   const { projectId } = useParams();
   const navigate = useNavigate();
 
-  const { details, error, isLoading } = useProjectDetail(projectId);
-  const { mutateJoinProject, isJoining } = useJoinProject();
+  const { details, projectMembers, owner, skills, isLoading } =
+    useProjectDetail(projectId);
 
   const {
-    description,
     title,
-    created_by,
-    place,
-    repository,
-    visibility,
-    created_at,
-    status,
+    description,
     projectSummary,
+    created_at,
+    place,
+    visibility,
+    repository,
   } = details?.[0] || {};
 
-  const { projectMembers } = useProjectMembers(projectId);
-  const { user: owner } = useGetUserDetail(created_by);
   const { name: ownerName, email: ownerEmail, id: ownerId } = owner?.[0] || {};
 
-  const { skills } = useRequiredSkills(projectId);
-  console.log(skills);
-  console.log(projectId);
+  const { mutateJoinProject, isJoining } = useJoinProject();
 
   function handleNavigateBack() {
     navigate(-1);
